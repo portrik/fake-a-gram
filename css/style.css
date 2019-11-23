@@ -1,0 +1,11 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: grey;
+}
+
+img {
+    max-width: 50vw;
+    max-height: 25vh;
+    margin-left: 45vw;
+}
