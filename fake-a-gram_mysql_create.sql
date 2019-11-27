@@ -3,8 +3,9 @@ USE fakeagram;
 
 CREATE TABLE `users` (
 	`id` INT NOT NULL AUTO_INCREMENT,
-	`username` VARCHAR(255) NOT NULL UNIQUE,
-	`password` VARCHAR(255) NOT NULL,
+	`username` VARCHAR(31) NOT NULL UNIQUE,
+	`pass` VARCHAR(255) NOT NULL,
+	`email` VARCHAR(255) NOT NULL,
 	PRIMARY KEY (`id`)
 );
 

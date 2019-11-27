@@ -1,3 +1,16 @@
+<?php
+    $user = "";
+    if($_SERVER["REQUEST_METHOD"] === "POST") {
+        require 'db_communication.php';
+
+        $conn = get_connection();
+
+        if(login($conn, $_POST["username"], $_POST["password"])) {
+            $user = $_POST["username"];
+        }
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -20,6 +33,7 @@
         <div>
             <div>
                 <img src="https://i.imgur.com/rSVeOIH.jpg" alt="memecko">
+                <?php echo($user) ?>
             </div>
         </div>
     </body>

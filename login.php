@@ -20,12 +20,12 @@
     </nav>
     <div>
         <div>
-            <form action="POST">
+            <form action="/" method="POST">
                 <label for="username">Username
-                    <input type="text" name="username" id="username">
+                    <input type="text" name="username" id="username" required>
                 </label>
                 <label for="password">Password
-                    <input type="password" name="password" id="passsword">
+                    <input type="password" name="password" id="passsword" required>
                 </label>
                 <input type="submit" name="submit" id="submit">
             </form>

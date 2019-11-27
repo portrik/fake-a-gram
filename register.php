@@ -23,16 +23,16 @@
         <div>
             <form action="postregistration.php" method="POST">
                 <label for="username">Username
-                    <input type="text" name="username" id="username">
+                    <input type="text" name="username" id="username" required>
                 </label>
                 <label for="email">Email
-                    <input type="email" name="email" id="email">
+                    <input type="email" name="email" id="email" required>
                 </label>
                 <label for="password">Password
-                    <input type="password" name="password" id="password">
+                    <input type="password" name="password" id="password" required>
                 </label>
                 <label for="passwordConfirm">Confirm Password
-                    <input type="password" name="passwordConfirm" id="passwordConfirm">
+                    <input type="password" name="passwordConfirm" id="passwordConfirm" required>
                 </label>
                 <input type="submit" name="submit" id="submit">
             </form>
