@@ -1,14 +1,10 @@
 <?php
-    $user = "";
-    if($_SERVER["REQUEST_METHOD"] === "POST") {
-        require 'db_communication.php';
+    require 'db_communication.php';
+    session_start();
 
-        $conn = get_connection();
+    $conn = get_connection();
 
-        if(login($conn, $_POST["username"], $_POST["password"])) {
-            $user = $_POST["username"];
-        }
-    }
+    $result = get_posts($conn, 0, 10);
 ?>
 
 <!DOCTYPE html>
@@ -29,11 +25,22 @@
             <a href="/">Homepage</a>
             <a href="/login.php">Login</a>
             <a href="/register.php">Register</a>
+            <?php
+                if(isset($_SESSION["username"])) {
+                    echo('<a href="/post.php">Add Post</a>');
+                    echo('<a>'. $_SESSION["username"] .'</a>');
+                }  
+            ?>
         </nav>
         <div>
             <div>
                 <img src="https://i.imgur.com/rSVeOIH.jpg" alt="memecko">
-                <?php echo($user) ?>
+                <?php
+                    while ($row = $result -> fetch_row()) {
+                        echo("1: ". $row[0] ." 2: ". $row[1] ."");
+                    }
+
+                ?>
             </div>
         </div>
     </body>

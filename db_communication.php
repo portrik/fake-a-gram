@@ -1,6 +1,11 @@
 <?php
+    define('DB_SERVER', 'localhost');
+    define('DB_USER', 'root');
+    define('DB_PASS', '');
+    define('DB_DATABASE', 'fakeagram');    
+
     function get_connection() {
-        $conn = new mysqli("localhost", "root", "", "fakeagram");
+        $conn = new mysqli(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE);
 
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
@@ -52,4 +57,40 @@
         
         return false;
     }
+
+    function add_post($conn, $title, $imgur_address, $username) {
+        $user = get_user_id($conn, $username);
+
+        if($user >= 0) {
+            $sql = "INSERT INTO posts (imgur_address, title, user) VALUES ('". $imgur_address ."', '". $title ."', '". $user ."')";
+
+            $conn -> query($sql);
+
+            return "Success";
+        }
+        else {
+            return "Invalid user";
+        }
+    }
+
+    function get_user_id($conn, $username) {
+        $sql = "SELECT id FROM users WHERE username='". $username ."'";
+        $result = $conn->query($sql);
+
+        return $result->fetch_object()->id;
+    }   
+
+    function get_posts($conn, $start, $count) {
+        $all_rows = $conn -> query("SELECT id FROM posts");
+        $number = $count;
+
+        if($count > ($all_rows -> num_rows)) {
+            $number = $all_rows -> num_rows;
+        }
+
+        $sql = "SELECT imgur_address, title FROM posts ORDER BY id LIMIT ". $start .", ". $count ."";
+        $result = $conn -> query($sql);
+
+        return $result;
+    } 
 ?>

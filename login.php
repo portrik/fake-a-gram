@@ -1,3 +1,19 @@
+<?php
+    include("db_communication.php");
+    session_start();
+
+    $conn = get_connection();
+
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
+        if(login($conn, $_POST["username"], $_POST["password"])) {
+            $_SESSION["username"] = $_POST["username"];
+            header("Location: /");
+        }
+    }
+
+    $conn -> close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,9 +36,9 @@
     </nav>
     <div>
         <div>
-            <form action="/" method="POST">
+            <form action="#" method="POST">
                 <label for="username">Username
-                    <input type="text" name="username" id="username" required>
+                    <input type="text" name="username" id="username" value="<?php echo isset($_POST["username"]) ? $_POST["username"] : "" ?>" required>
                 </label>
                 <label for="password">Password
                     <input type="password" name="password" id="passsword" required>

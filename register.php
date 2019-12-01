@@ -1,3 +1,15 @@
+<?php
+    include("db_communication.php");
+    $response = "";
+
+    if($_SERVER["REQUEST_METHOD"] === "POST") {
+        $conn = get_connection();
+
+        $response = add_user($conn, $_POST["username"], $_POST["password"], $_POST["passwordConfirm"], $_POST["email"]);
+
+        $conn -> close();
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,12 +33,12 @@
     </nav>
     <div>
         <div>
-            <form action="postregistration.php" method="POST">
+            <form action="#" method="POST">
                 <label for="username">Username
-                    <input type="text" name="username" id="username" required>
+                    <input type="text" name="username" id="username" value="<?php echo isset($_POST["username"]) ? $_POST["username"] : '' ?>" required>
                 </label>
                 <label for="email">Email
-                    <input type="email" name="email" id="email" required>
+                    <input type="email" name="email" id="email" value="<?php echo isset($_POST["email"]) ? $_POST["email"] : '' ?>" required>
                 </label>
                 <label for="password">Password
                     <input type="password" name="password" id="password" required>
@@ -36,6 +48,10 @@
                 </label>
                 <input type="submit" name="submit" id="submit">
             </form>
+
+            <?php 
+                echo($response);
+            ?>
         </div>
     </div>
 </body>
