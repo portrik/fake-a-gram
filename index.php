@@ -23,13 +23,16 @@
     <body>
         <nav>
             <a href="/">Homepage</a>
-            <a href="/login.php">Login</a>
-            <a href="/register.php">Register</a>
             <?php
                 if(isset($_SESSION["username"])) {
                     echo('<a href="/post.php">Add Post</a>');
                     echo('<a>'. $_SESSION["username"] .'</a>');
+                    echo('<a href="logout.php">Logout</a>');
                 }  
+                else {
+                    echo('<a href="/login.php">Login</a>');
+                    echo('<a href="/register.php">Register</a>');
+                }
             ?>
         </nav>
         <div>
@@ -37,7 +40,9 @@
                 <img src="https://i.imgur.com/rSVeOIH.jpg" alt="memecko">
                 <?php
                     while ($row = $result -> fetch_row()) {
-                        echo("1: ". $row[0] ." 2: ". $row[1] ."");
+                        $img = "<img src=\"". $row[0] ."\" at=\"". $row[1] ."\"> ". $row[1] ." by ". get_username($conn, $row[2]) ."";
+
+                        echo($img);
                     }
 
                 ?>
