@@ -88,7 +88,7 @@
             $number = $all_rows -> num_rows;
         }
 
-        $sql = "SELECT imgur_address, title, user FROM posts ORDER BY id LIMIT ". $start .", ". $count ."";
+        $sql = "SELECT imgur_address, title, user, id FROM posts ORDER BY id LIMIT ". $start .", ". $count ."";
         $result = $conn -> query($sql);
 
         return $result;
@@ -98,5 +98,13 @@
         $sql = "SELECT username FROM users WHERE id=". $user_id ." LIMIT 1";
         $result = $conn -> query($sql);
         return $result -> fetch_object() -> username;
+    }
+
+    function upvote($conn, $username, $post_id) {
+        $sql = 'INSERT INTO likes (post, user) VALUES ('. $post_id .', '. get_user_id($conn, $username) .')';
+
+        $result = $conn -> query($sql);
+
+        return $sql;
     }
 ?>

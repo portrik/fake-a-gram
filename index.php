@@ -5,6 +5,14 @@
     $conn = get_connection();
 
     $result = get_posts($conn, 0, 10);
+
+    $what = "";
+
+    if($_SERVER["REQUEST_METHOD"] === "POST") {
+        if(isset($_POST["post_id"])) {
+            $what = upvote($conn, $_SESSION["username"], $_POST["post_id"]);
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -37,12 +45,13 @@
         </nav>
         <div>
             <div>
-                <img src="https://i.imgur.com/rSVeOIH.jpg" alt="memecko">
                 <?php
+                    echo($what);
                     while ($row = $result -> fetch_row()) {
-                        $img = "<img src=\"". $row[0] ."\" at=\"". $row[1] ."\"> ". $row[1] ." by ". get_username($conn, $row[2]) ."";
-
+                        $img = '<img src="'. $row[0] .'" at="'. $row[1] .'"> '. $row[1] .' by '. get_username($conn, $row[2]) .'';
                         echo($img);
+                        $send = '<form method="POST" action="#"><input type="text" name="post_id" value="'. $row[3] .'"><input type="submit"></form>';
+                        echo($send);
                     }
 
                 ?>
