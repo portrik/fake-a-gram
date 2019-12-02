@@ -103,8 +103,6 @@
     function upvote($conn, $username, $post_id) {
         $sql = 'INSERT INTO likes (post, user) VALUES ('. $post_id .', '. get_user_id($conn, $username) .')';
 
-        $result = $conn -> query($sql);
-
-        return $sql;
+        $conn -> query($sql);
     }
 ?>
