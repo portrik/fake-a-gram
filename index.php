@@ -5,11 +5,12 @@
     $conn = get_connection();
 
     $result = get_posts($conn, 0, 10);
+    $what = "";
 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
-        if(isset($_POST["post_id"])) {
-            upvote($conn, $_SESSION["username"], $_POST["post_id"]);
-        }
+        $what = "POSTED";
+        $what = add_comment($conn, $_POST["post_id_comment"], $_SESSION["username"], $_POST["comment"]);
+        upvote($conn, $_SESSION["username"], $_POST["post_id"]);
     }
 ?>
 
@@ -44,12 +45,15 @@
         <div>
             <div>
                 <?php
-                    if($result != false) {
+                    echo($what);
+                    if($result -> num_rows > 0) {
                         while ($row = $result -> fetch_row()) {
                             $img = '<img src="'. $row[0] .'" at="'. $row[1] .'"> '. $row[1] .' by '. get_username($conn, $row[2]) .'';
                             echo($img);
-                            $send = '<form method="POST" action="#"><input type="text" name="post_id" value="'. $row[3] .'"><input type="submit"></form>';
-                            echo($send);
+                            $like = '<form method="POST" action="#"><input type="text" name="post_id" value="'. $row[3] .'" disabled><input type="submit"></form>';
+                            echo($like);
+                            $comment = '<form method="POST" action="#"><input type="text" name="post_id_comment" value="'. $row[3] .'" disabled><input type="text" id="comment" name="comment"><input type="submit"></form>';
+                            echo($comment);
                         }
                     }
                     else {

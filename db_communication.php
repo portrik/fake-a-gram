@@ -105,4 +105,11 @@
 
         $conn -> query($sql);
     }
+
+    function add_comment($conn, $post_id, $username, $comment) {
+        $user = get_user_id($conn, $username);
+        $sql = 'INSERT INTO comments (comment, post, user) VALUES ("'. $comment .'", '. $post_id .', '. $user .')';
+
+        return $sql;
+    }
 ?>
