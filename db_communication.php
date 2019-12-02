@@ -110,6 +110,6 @@
         $user = get_user_id($conn, $username);
         $sql = 'INSERT INTO comments (comment, post, user) VALUES ("'. $comment .'", '. $post_id .', '. $user .')';
 
-        return $sql;
+        $conn -> query($sql);
     }
 ?>

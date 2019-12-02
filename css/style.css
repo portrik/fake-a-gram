@@ -10,6 +10,21 @@ img {
     margin-left: 45vw;
 }
 
+a {
+    color: black;
+}
+
 nav {
     background: #FFCF82;
+    height: 5vh;
+}
+
+input {
+    width: 100%;
+    padding: 0;
+}
+
+.mainWrapper {
+    width: 40vw;
+    margin: auto;
 }

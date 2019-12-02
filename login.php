@@ -34,18 +34,16 @@
     <nav>
         <a href="/">Homepage</a>
     </nav>
-    <div>
-        <div>
-            <form action="#" method="POST">
-                <label for="username">Username
-                    <input type="text" name="username" id="username" value="<?php echo isset($_POST["username"]) ? $_POST["username"] : "" ?>" required>
-                </label>
-                <label for="password">Password
-                    <input type="password" name="password" id="passsword" required>
-                </label>
-                <input type="submit" name="submit" id="submit">
-            </form>
-        </div>
+    <div class="mainWrapper">
+        <form action="#" method="POST">
+            <label for="username">Username
+                <input type="text" name="username" id="username" value="<?php echo isset($_POST["username"]) ? $_POST["username"] : "" ?>" required>
+            </label>
+            <label for="password">Password
+                <input type="password" name="password" id="passsword" required>
+            </label>
+            <label><input type="submit" name="submit" id="submit"></label>
+        </form>
     </div>
 </body>
 
