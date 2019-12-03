@@ -6,22 +6,23 @@
     $count = 10;
 
     $conn = get_connection();
-
     if($_SERVER["REQUEST_METHOD"] === "POST") {
-        if(isset($_POST["submitLike"])) {
-            upvote($conn, $_SESSION["username"], $_POST["post_id"]);
+        if(isset($_SESSION["username"])) {
+            if(isset($_POST["submitLike"])) {
+                upvote($conn, $_SESSION["username"], $_POST["post_id"]);
+            }
+            elseif (isset($_POST["submitComment"])) {
+                add_comment($conn, $_POST["post_id_comment"], $_SESSION["username"], $_POST["comment"]);
+            }
         }
-        elseif (isset($_POST["submitComment"])) {
-            add_comment($conn, $_POST["post_id_comment"], $_SESSION["username"], $_POST["comment"]);
-        }
-        elseif(isset($_POST["submitPosts"])) {
+
+        if(isset($_POST["submitPosts"])) {
             $start = $_POST["start"] + $_POST["count"];
             $count = $_POST["count"];
         }
     }
-    $result = get_posts($conn, $start, $count);
 
-    $conn -> close();
+    $result = get_posts($conn, $start, $count);
 ?>
 
 <!DOCTYPE html>
@@ -74,6 +75,8 @@
                         $message = '<h1>No more posts were loaded.</h4>';
                         echo($message);
                     }
+
+                    $conn -> close();
                 ?>
             </div>
         </div>
