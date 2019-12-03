@@ -28,3 +28,7 @@ input {
     width: 40vw;
     margin: auto;
 }
+
+.hidden {
+    display: none;
+}
