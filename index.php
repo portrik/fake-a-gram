@@ -63,9 +63,11 @@
                             $comment = '<form method="POST" action="#"><input type="text" name="post_id_comment" value="'. $row[3] .'" class="hidden"><input type="text" name="comment"><input type="submit" name="submitComment" value="Comment"></form>';
                             echo($comment);
                         }
-
-                        $more_posts = '<form method="POST" action="#"><input type="text" name="start" value="'. $start .'" class="hidden"><input type="text" name="count" value="'. $count .'" class="hidden"><input type="submit" name="submitPosts" value="Load More Posts"></form>';
-                        echo($more_posts);
+                        
+                        if ($result -> num_rows === $count) {
+                            $more_posts = '<form method="POST" action="#"><input type="text" name="start" value="'. $start .'" class="hidden"><input type="text" name="count" value="'. $count .'" class="hidden"><input type="submit" name="submitPosts" value="Load More Posts"></form>';
+                            echo($more_posts);
+                        }
                     }
                     else {
                         $message = '<h1>No more posts were loaded.</h4>';
