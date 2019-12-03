@@ -48,10 +48,6 @@
                 </label>
                 <input type="submit" name="submit" id="submit">
             </form>
-
-            <?php 
-                echo($response);
-            ?>
         </div>
     </div>
 </body>

@@ -19,8 +19,9 @@
             $count = $_POST["count"];
         }
     }
-
     $result = get_posts($conn, $start, $count);
+
+    $conn -> close();
 ?>
 
 <!DOCTYPE html>
