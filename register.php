@@ -34,7 +34,7 @@
         <a href="/login.php">Login</a>
     </nav>
     <div>
-        <div>
+        <div class="mainWrapper">
             <form action="#" method="POST">
                 <label for="username">Username
                     <input type="text" name="username" id="username" value="<?php echo isset($_POST["username"]) ? $_POST["username"] : '' ?>" required>

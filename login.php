@@ -44,7 +44,7 @@
             <label for="password">Password
                 <input type="password" name="password" id="passsword" required>
             </label>
-            <label><input type="submit" name="submit" id="submit"></label>
+            <label><button type="submit" name="submit" id="submit">Login</button></label>
         </form>
     </div>
 </body>

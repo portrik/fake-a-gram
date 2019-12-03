@@ -20,9 +20,10 @@ nav {
     height: 5vh;
 }
 
-input {
+input, button {
     width: 100%;
     padding: 0;
+    font-size: 36px;
 }
 
 .mainWrapper {
