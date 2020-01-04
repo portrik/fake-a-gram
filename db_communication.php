@@ -154,4 +154,16 @@
             $sql -> execute([$comment, $post_id, $user_id]);
         }
     }
+
+    function get_likes($conn, $post_id) {
+        if ($post_id > 0)
+        {
+            $sql = $conn -> prepare("SELECT * FROM likes WHERE post=?");
+            $sql -> execute([$post_id]);
+
+            $result = sizeof($sql -> fetchAll());
+
+            return $result;
+        }
+    }
 ?>
