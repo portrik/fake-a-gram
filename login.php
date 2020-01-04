@@ -35,6 +35,7 @@
 <body>
     <nav>
         <a href="/">Homepage</a>
+        <a href="/register.php">Register</a>
     </nav>
     <div class="mainWrapper">
         <form action="#" method="POST">

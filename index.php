@@ -78,8 +78,6 @@
                         $message = '<h1>No more posts were loaded.</h4>';
                         echo($message);
                     }
-
-                    $conn -> close();
                 ?>
             </div>
         </div>
