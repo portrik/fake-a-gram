@@ -86,12 +86,12 @@
 
     function get_user_id($conn, $username) {
         $sql = $conn -> prepare("SELECT id FROM users WHERE username=?");
-        $sql -> exceute([$username]);
+        $sql -> execute([$username]);
 
         $result = $sql -> fetch();
 
         if($result > 0) {
-            return $result;
+            return $result["id"];
         }
 
         return -1;
@@ -131,9 +131,17 @@
         $sql -> execute([$post_id, $user_id]);
         $num_rows = sizeof($sql -> fetchAll());
 
-        if($num_rows > 1 && $username !== "" && $post_id > 0) {
-            $sql = $conn -> prepare("INSERT INTO likes (post, user) VALUES (?, ?)");
-            $sql -> execute([$post_id, $user_id]);
+        if($user_id > 0 && $post_id > 0) {
+            if($num_rows === 0)
+            {
+                $sql = $conn -> prepare("INSERT INTO likes (post, user) VALUES (?, ?)");
+                $sql -> execute([$post_id, $user_id]);
+            }
+            else 
+            {
+                $sql = $conn -> prepare("DELETE FROM likes WHERE post=? AND user=?");
+                $sql -> execute([$post_id, $user_id]);
+            }
         }
     }
 

@@ -65,9 +65,9 @@
                         {
                             $img = '<img src="'. $row["imgur_address"] .'" at="'. $row["title"] .'"> '. $row["title"] .' by '. get_username($conn, $row["user"]) .'';
                             echo($img);
-                            $like = '<form method="POST" action="#"><input type="text" name="post_id" value="'. $row[3] .'" class="hidden"><input type="submit" name="submitLike" value="Like"></form>';
+                            $like = '<form method="POST" action="#"><input type="text" name="post_id" value="'. $row["id"] .'" class="hidden"><input type="submit" name="submitLike" value="Like"></form>';
                             echo($like);
-                            $comment = '<form method="POST" action="#"><input type="text" name="post_id_comment" value="'. $row[3] .'" class="hidden"><input type="text" name="comment"><input type="submit" name="submitComment" value="Comment"></form>';
+                            $comment = '<form method="POST" action="#"><input type="text" name="post_id_comment" value="'. $row["id"] .'" class="hidden"><input type="text" name="comment"><input type="submit" name="submitComment" value="Comment"></form>';
                             echo($comment);
                         }
                         
