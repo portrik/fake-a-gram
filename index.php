@@ -20,7 +20,18 @@
         if(isset($_POST["submitPosts"])) {
             $start = $_POST["start"] + $_POST["count"];
             $count = $_POST["count"];
+
+            header('Location: /?start='. $start .'');
         }
+        else
+        {
+            header('Location: /');
+        }
+    }
+
+    if(isset($_GET["start"]))
+    {
+        $start = $_GET["start"];
     }
 
     $result = get_posts($conn, $start, $count);
@@ -67,9 +78,9 @@
                             echo($img);
                             $num_of_likes = '<p>Num of likes: '. get_likes($conn, $row["id"]) .'</p>';
                             echo($num_of_likes);
-                            $like = '<form method="POST" action="#"><input type="text" name="post_id" value="'. $row["id"] .'" class="hidden"><input type="submit" name="submitLike" value="Like"></form>';
+                            $like = '<form method="POST" action="/"><input type="text" name="post_id" value="'. $row["id"] .'" class="hidden"><input type="submit" name="submitLike" value="Like"></form>';
                             echo($like);
-                            $comment = '<form method="POST" action="#"><input type="text" name="post_id_comment" value="'. $row["id"] .'" class="hidden"><input type="text" name="comment"><input type="submit" name="submitComment" value="Comment"></form>';
+                            $comment = '<form method="POST" action="/"><input type="text" name="post_id_comment" value="'. $row["id"] .'" class="hidden"><input type="text" name="comment"><input type="submit" name="submitComment" value="Comment"></form>';
                             echo($comment);
 
                             $comments = get_comments($conn, $row["id"]);
@@ -83,7 +94,7 @@
                         
                         if (sizeof($result) === $count) 
                         {
-                            $more_posts = '<form method="POST" action="#"><input type="text" name="start" value="'. $start .'" class="hidden"><input type="text" name="count" value="'. $count .'" class="hidden"><input type="submit" name="submitPosts" value="Load More Posts"></form>';
+                            $more_posts = '<form method="POST" action="/?start='. $start .'&count='. $count .'"><input type="text" name="start" value="'. $start .'" class="hidden"><input type="text" name="count" value="'. $count .'" class="hidden"><input type="submit" name="submitPosts" value="Load More Posts"></form>';
                             echo($more_posts);
                         }
                     }

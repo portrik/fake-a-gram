@@ -1,7 +1,6 @@
 <?php
     include("db_communication.php");
     session_start();
-    $response = "";
 
     if(!isset($_SESSION["username"])) {
         header("Location: /");
@@ -16,8 +15,6 @@
             }
         }
     }
-
-    $conn -> close();
 ?>
 
 <!DOCTYPE html>
