@@ -8,7 +8,8 @@
 
         $dsn = 'mysql:dbname='. $db . ';host='. $host .';charset='. $charset .'';
         $options = [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_EMULATE_PREPARES => false,
         ];
 
         try {
@@ -21,8 +22,8 @@
     }
 
     function add_user($conn, $username, $password, $passwordCheck, $email) {
-        $sql = "SELECT username FROM users";
-        $usernames = $conn -> query($sql) -> fetch_array();
+        $sql = $conn -> query("SELECT username FROM users");
+        $usernames = $sql -> fetchAll();
 
         if($username > 31 || in_array($username, $usernames)) {
             return "Username is not valid";
@@ -49,10 +50,12 @@
 
     function login($conn, $username, $password) {
         $sql = $conn -> prepare("SELECT pass FROM users WHERE username=?");
-        $result = $sql -> execute([$username]);
+        $sql -> execute([$username]);
 
-        if($result -> num_rows > 0) {
-            if(password_verify($password, $result -> fetch_object() -> pass)) {
+        $pass_check = $sql -> fetch();
+
+        if($pass_check) {
+            if(password_verify($password, $pass_check["pass"])) {
                 return true;
             }
         }
@@ -83,7 +86,9 @@
 
     function get_user_id($conn, $username) {
         $sql = $conn -> prepare("SELECT id FROM users WHERE username=?");
-        $result = $sql -> exceute([$username]) -> fetch();
+        $sql -> exceute([$username]);
+
+        $result = $sql -> fetch();
 
         if($result > 0) {
             return $result;
@@ -97,30 +102,34 @@
             return 0;
         }
 
-        $all_rows = $conn -> query("SELECT id FROM posts");
+        $all_rows = $conn -> query("SELECT id FROM posts") -> fetchAll();
         $number = $count;
 
-        if($count > ($all_rows -> num_rows)) {
-            $number = $all_rows -> num_rows;
+        if($count > sizeof($all_rows)) {
+            $number = sizeof($all_rows);
         }
 
-        $sql = $conn -> prepare("SELECT imgur_address, title, user, id FROM posts ORDER BY id LIMIT ?, ?");
-        $result = $sql -> execute([$start, $count]);
+        $sql = $conn -> prepare("SELECT * FROM posts ORDER BY id LIMIT ? , ?");
+        $sql -> execute([$start, $number]);
+        $result = $sql -> fetchAll();
 
         return $result;
     } 
 
     function get_username($conn, $user_id) {
         $sql = $conn -> prepare("SELECT username FROM users WHERE id=? LIMIT 1");
-        $username = $sql -> execute([$user_id]) -> fetch_object() -> username;
-        return $username;
+        $sql -> execute([$user_id]);
+
+        $username = $sql -> fetch();
+        return $username["username"];
     }
 
     function upvote($conn, $username, $post_id) {
         $user_id = get_user_id($conn, $username);
 
         $sql = $conn -> prepare("SELECT * FROM likes WHERE post=? AND user=?");
-        $num_rows = $sql -> execute([$post_id, $user_id]) -> num_rows;
+        $sql -> execute([$post_id, $user_id]);
+        $num_rows = sizeof($sql -> fetchAll());
 
         if($num_rows > 1 && $username !== "" && $post_id > 0) {
             $sql = $conn -> prepare("INSERT INTO likes (post, user) VALUES (?, ?)");

@@ -6,6 +6,7 @@
     $count = 10;
 
     $conn = get_connection();
+
     if($_SERVER["REQUEST_METHOD"] === "POST") {
         if(isset($_SESSION["username"])) {
             if(isset($_POST["submitLike"])) {
@@ -59,9 +60,10 @@
         <div>
             <div>
                 <?php
-                    if($result -> num_rows > 0) {
-                        while ($row = $result -> fetch_row()) {
-                            $img = '<img src="'. $row[0] .'" at="'. $row[1] .'"> '. $row[1] .' by '. get_username($conn, $row[2]) .'';
+                    if(sizeof($result) > 0) {
+                        foreach($result as $row)
+                        {
+                            $img = '<img src="'. $row["imgur_address"] .'" at="'. $row["title"] .'"> '. $row["title"] .' by '. get_username($conn, $row["user"]) .'';
                             echo($img);
                             $like = '<form method="POST" action="#"><input type="text" name="post_id" value="'. $row[3] .'" class="hidden"><input type="submit" name="submitLike" value="Like"></form>';
                             echo($like);
@@ -69,7 +71,7 @@
                             echo($comment);
                         }
                         
-                        if ($result -> num_rows === $count) {
+                        if (sizeof($result) === $count) {
                             $more_posts = '<form method="POST" action="#"><input type="text" name="start" value="'. $start .'" class="hidden"><input type="text" name="count" value="'. $count .'" class="hidden"><input type="submit" name="submitPosts" value="Load More Posts"></form>';
                             echo($more_posts);
                         }

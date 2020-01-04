@@ -10,8 +10,6 @@
             header("Location: /");
         }
     }
-
-    $conn -> close();
 ?>
 
 <!DOCTYPE html>
