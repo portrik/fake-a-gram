@@ -29,8 +29,8 @@
             return "Username is not valid";
         }
 
-        $sql = "SELECT email FROM users";
-        $emails = $conn -> query($sql) -> fetch_array();
+        $sql = $conn -> query("SELECT email FROM users");
+        $emails = $sql -> fetchAll();
 
         if($email > 255 || in_array($email, $emails)) {
             return "Email is not valid";
@@ -43,7 +43,7 @@
         $pass = password_hash($password, PASSWORD_BCRYPT);
         
         $sql = $conn -> prepare("INSERT INTO users (username, pass, email) VALUES (?, ?, ?)");
-        $sql -> execute([$user, $pass, $email]);
+        $sql -> execute([$username, $pass, $email]);
 
         return "Success";
     }

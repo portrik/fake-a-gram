@@ -7,7 +7,10 @@
 
         $response = add_user($conn, $_POST["username"], $_POST["password"], $_POST["passwordConfirm"], $_POST["email"]);
 
-        $conn -> close();
+        if ($response == "Success")
+        {
+            header("Location: /");
+        }
     }
 ?>
 <!DOCTYPE html>
