@@ -71,14 +71,24 @@
                             echo($like);
                             $comment = '<form method="POST" action="#"><input type="text" name="post_id_comment" value="'. $row["id"] .'" class="hidden"><input type="text" name="comment"><input type="submit" name="submitComment" value="Comment"></form>';
                             echo($comment);
+
+                            $comments = get_comments($conn, $row["id"]);
+
+                            foreach($comments as $comm)
+                            {
+                                $text = '<p>From '. get_username($conn, $comm["user"]) .': '. $comm["comment"] .'<br>';
+                                echo($text);
+                            }
                         }
                         
-                        if (sizeof($result) === $count) {
+                        if (sizeof($result) === $count) 
+                        {
                             $more_posts = '<form method="POST" action="#"><input type="text" name="start" value="'. $start .'" class="hidden"><input type="text" name="count" value="'. $count .'" class="hidden"><input type="submit" name="submitPosts" value="Load More Posts"></form>';
                             echo($more_posts);
                         }
                     }
-                    else {
+                    else 
+                    {
                         $message = '<h1>No more posts were loaded.</h4>';
                         echo($message);
                     }

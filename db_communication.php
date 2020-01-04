@@ -166,4 +166,16 @@
             return $result;
         }
     }
+
+    function get_comments($conn, $post_id) {
+        if ($post_id > 0)
+        {
+            $sql = $conn -> prepare("SELECT * FROM comments WHERE post=?");
+            $sql -> execute([$post_id]);
+
+            $result = $sql -> fetchAll();
+
+            return $result;
+        }
+    }
 ?>
