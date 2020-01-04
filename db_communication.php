@@ -148,7 +148,10 @@
     function add_comment($conn, $post_id, $username, $comment) {
         $user_id = get_user_id($conn, $username);
 
-        $sql = $conn -> prepare("INSERT INTO comments (comment, post, user) VALUES (?, ?, ?)");
-        $sql -> execute([$comment, $post_id, $user_id]);
+        if ($comment !== "" && $user_id > 0 && $post_id > 0) 
+        {
+            $sql = $conn -> prepare("INSERT INTO comments (comment, post, user) VALUES (?, ?, ?)");
+            $sql -> execute([$comment, $post_id, $user_id]);
+        }
     }
 ?>
