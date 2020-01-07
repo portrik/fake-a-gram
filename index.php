@@ -51,7 +51,7 @@
         <link rel="stylesheet" href="/css/lightstyle.css" media="(prefers-color-scheme: light)">
         
         <!-- Custom Google Font -->
-        <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
     </head>
     <body>
         <nav>
