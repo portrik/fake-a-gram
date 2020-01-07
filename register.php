@@ -1,15 +1,16 @@
 <?php
-    include("db_communication.php");
+    include('db_communication.php');
     $response = "";
 
-    if($_SERVER["REQUEST_METHOD"] === "POST") {
+    if($_SERVER['REQUEST_METHOD'] == 'POST') 
+    {
         $conn = get_connection();
 
-        $response = add_user($conn, $_POST["username"], $_POST["password"], $_POST["passwordConfirm"], $_POST["email"]);
+        $response = add_user($conn, $_POST["username"], $_POST["password"], $_POST["passwordCheck"], $_POST["email"]);
 
         if ($response == "Success")
         {
-            header("Location: /");
+            header("Location: /login.php");
         }
     }
 ?>
@@ -38,7 +39,7 @@
     </nav>
     <div>
         <div class="mainWrapper">
-            <form action="#" method="POST">
+            <form action="#" method="POST" id="registerForm">
                 <label for="username">Username
                     <input type="text" name="username" id="username" value="<?php echo isset($_POST["username"]) ? $_POST["username"] : '' ?>" required>
                 </label>
@@ -48,8 +49,8 @@
                 <label for="password">Password
                     <input type="password" name="password" id="password" required>
                 </label>
-                <label for="passwordConfirm">Confirm Password
-                    <input type="password" name="passwordConfirm" id="passwordConfirm" required>
+                <label for="passwordCheck">Confirm Password
+                    <input type="password" name="passwordCheck" id="passwordCheck" required>
                 </label>
                 <input type="submit" name="submit" id="submit">
             </form>

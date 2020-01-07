@@ -28,6 +28,8 @@
 
     <!-- Custom Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
+
+    <script src="js/formValidation.js"></script>
 </head>
 
 <body>
@@ -36,16 +38,20 @@
         <a href="/register.php">Register</a>
     </nav>
     <div class="mainWrapper">
-        <form action="#" method="POST">
+        <form action="#" method="POST" id="loginForm">
             <label for="username">Username
                 <input type="text" name="username" id="username" value="<?php echo isset($_POST["username"]) ? $_POST["username"] : "" ?>" required>
             </label>
             <label for="password">Password
-                <input type="password" name="password" id="passsword" required>
+                <input type="password" name="password" id="password" required>
             </label>
             <label><button type="submit" name="submit" id="submit">Login</button></label>
         </form>
     </div>
+
+    <script>
+        initLogin();
+    </script>
 </body>
 
 </html>
