@@ -2,6 +2,11 @@
     include("db_communication.php");
     session_start();
 
+    if(isset($_SESSION["username"]))
+    {
+        header('Location: /');
+    }
+
     $conn = get_connection();
 
     if($_SERVER["REQUEST_METHOD"] == "POST") {

@@ -15,12 +15,14 @@
                 echo(check_email($conn, $value));
                 break;
             case 'login':
-                echo(login($conn, $value, $_POST['secondValue']));
+                echo(check_login($conn, $value, $_POST['secondValue']));
                 break;
         }
     }
-
-    header('Location: /');
+    else 
+    {
+        header('Location: /');
+    }    
 
     function check_username($conn, $username)
     {
@@ -32,5 +34,19 @@
         {
             return false;
         }
+    }
+
+    function check_login($conn, $username, $pass) 
+    {
+        if (login($conn, $username, $pass))
+            {
+                session_start();
+                $_SESSION["username"] = $username;
+
+                return 'true';
+            }
+            else {
+                return 'false';
+            }
     }
 ?>

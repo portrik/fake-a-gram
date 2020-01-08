@@ -30,6 +30,8 @@
 
     <!-- Custom Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
+
+    <script src="js/formValidation.js"></script>
 </head>
 
 <body>
@@ -56,6 +58,10 @@
             </form>
         </div>
     </div>
+
+    <script>
+        initRegister();
+    </script>
 </body>
 
 </html>

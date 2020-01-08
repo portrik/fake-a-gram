@@ -2,3 +2,6 @@ function initMainPage () {
 
 }
 
+function commentValidation() {
+    
+}

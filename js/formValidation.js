@@ -1,71 +1,69 @@
 function initLogin() {
     document.getElementById('loginForm').addEventListener('submit', function (e) {
-        console.log(e);
+        e.preventDefault();
+
         removeWarnings();
 
         var username = document.getElementById('username').value.trim();
         var pass = document.getElementById('password').value.trim();
 
-        if (!validationRequest('login', username, pass)) {
-            var warning = createWarning('Submitted combination of username and password is not valid.');
-            document.getElementById('loginForm').appendChild(warning);
-
-            e.preventDefault();
-        }
+        validationRequest('login', username, pass);
     });
 }
 
 function initRegister() {
+    document.getElementById('username').addEventListener('blur', usernameValidation);
+    document.getElementById('email').addEventListener('blur', emailValidation);
+    document.getElementById('password').addEventListener('blur', passwordValidation);
+    document.getElementById('passwordCheck').addEventListener('blur', passwordValidation);
+
     document.getElementById('registerForm').addEventListener('submit', function (e) {
-        removeWarnings();
+        var warnings = document.getElementsByClassName('warning');
 
-        warnings = [];
-
-        if (!usernameValidation(document.getElementById('username'))) {
-            warnings.append(createWarning('Username is not valid or is already registered.'));
-        }
-
-        if(!emailValidation(document.getElementById('email'))) {
-            warnings.append(createWarning('Email is not valid or is already registered.'));
-        }
-
-        if(!passwordValidation(document.getElementById('password'))) {
-            warnings.append(createWarning('Password is not strong enough.'));
-        }
-
-        if(document.getElementById('password') !== document.getElementById('passwordCheck')) {
-            warnings.append(createWarning('Password and Password Confirmatin do not match.'));
-        }
-
-        if (warnings.length > 0) {
-            var formElement = document.getElementById('registerForm');
-            warnings.forEach(element => formElement.appendChild(element));
+        if (warnings !== null) {
             e.preventDefault();
         }
     });
 }
 
 function passwordValidation (pass) {
-    var valid = true;
+    var warning = document.getElementById('pass-warning');
 
     if (pass === "" || pass.length < 8) {
-        valid = false;
-    }
-
-    return valid;
-}
-
-function emailValidation (email) {
-    var valid = false;
-    var emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
-    if (email !== "" || email.match(emailFormat)) {
-        if (validationRequest('email', email)) {
-            valid = true;
+        if (warning === null) {
+            document.getElementById('registerForm').appendChild(createWarning('Password is invalid.', 'pass-warning'));
         }
     }
+    else {
+        if (warning !== null) {
+            warning.parentNode.removeChild(warning);
+        }
+    }
+}
 
-    return valid;
+function emailValidation () {
+    var email = document.getElementById('email').value;
+    var warning = document.getElementById('email-warning');
+
+    if (email !== "") {
+        console.log(validationRequest('email', email));
+        if (validationRequest('email', email) === 1) {
+            
+            if (warning !== null) {
+                warning.parentNode.removeChild(warning);
+            }
+        }
+        else {
+            if (warning === null) {
+                document.getElementById('registerForm').appendChild(createWarning('Email is already registered.', 'email-warning'));
+            }
+        }
+    }
+    else {
+        if (warning === null) {
+            document.getElementById('registerForm').appendChild(createWarning('Email is not valid.', 'email-warning'));
+        }
+    }
 }
 
 function usernameValidation (username) {
@@ -86,9 +84,10 @@ function removeWarnings () {
     }
 }
 
-function createWarning (text) {
+function createWarning (text, id = 'warning') {
     var warning = document.createElement('p');
     warning.classList.add('warning');
+    warning.id = id;
     warning.innerHTML =  text;
 
     return warning;
@@ -106,17 +105,14 @@ function validationRequest (type, value, secondValue = null) {
     request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     request.send(params);
 
-    console.log(request.responseText);
-
     request.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            
+            if (request.responseText === 'true') {
+                window.location.replace('/');
+            }
+            else if (request.responseText === 'false') {
+                document.getElementById('loginForm').appendChild(createWarning('Username and password are not valid.'));   
+            }
         }
-    }
-    if (request.responseText === "true") {
-        return true;
-    }
-    else {
-        return false;
     }
 }
