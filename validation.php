@@ -10,7 +10,7 @@
         {
             case 'username':
                 echo(check_username($conn, $value));
-                break;
+            break;
             case 'email':
                 if (check_email($conn, $value)) 
                 {
@@ -21,10 +21,10 @@
                     echo('false');
                 }
 
-                break;
+            break;
             case 'login':
                 echo(check_login($conn, $value, $_POST['secondValue']));
-                break;
+            break;
         }
     }
     else 

@@ -136,7 +136,7 @@
             $number = sizeof($all_rows);
         }
 
-        $sql = $conn -> prepare('SELECT * FROM posts ORDER BY id LIMIT ? , ?');
+        $sql = $conn -> prepare('SELECT * FROM posts ORDER BY id DESC LIMIT ? , ?');
         $sql -> execute([$start, $number]);
         $result = $sql -> fetchAll();
 
