@@ -9,8 +9,10 @@
 
     $conn = get_connection();
 
-    if($_SERVER["REQUEST_METHOD"] == "POST") {
-        if(login($conn, $_POST["username"], $_POST["password"])) {
+    if($_SERVER["REQUEST_METHOD"] == "POST")
+    {
+        if(login($conn, $_POST["username"], $_POST["password"])) 
+        {
             $_SESSION["username"] = $_POST["username"];
             header("Location: /");
         }

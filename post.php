@@ -2,15 +2,19 @@
     include("db_communication.php");
     session_start();
 
-    if(!isset($_SESSION["username"])) {
+    if(!isset($_SESSION["username"])) 
+    {
         header("Location: /");
     }
-    else {
-        if($_SERVER["REQUEST_METHOD"] === "POST") {
+    else 
+    {
+        if($_SERVER["REQUEST_METHOD"] === "POST") 
+        {
             $conn = get_connection();
             $response = add_post($conn, $_POST["title"], $_POST["imgur_address"], $_SESSION["username"]);
             
-            if($response == "Success") {
+            if($response == "Success") 
+            {
                 header("Location: /");
             }
         }

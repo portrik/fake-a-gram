@@ -18,9 +18,9 @@
             $pdo = new PDO($dsn, $user, $pass, $options);
             return $pdo;
         }
-        catch (\PDOException $e) 
+        catch (PDOException $e) 
         {
-            throw new \PDOException($e->getMessage(), (int)$e->getCode());
+            throw new PDOException($e->getMessage(), (int)$e->getCode());
         }
     }
 
@@ -52,7 +52,8 @@
         return 'Success';
     }
 
-    function check_email($conn, $email) {
+    function check_email($conn, $email) 
+    {
         $sql = $conn -> query('SELECT email FROM users');
         $emails = $sql -> fetchAll(PDO::FETCH_ASSOC);
 
@@ -88,15 +89,18 @@
     {
         $user = get_user_id($conn, $username);
 
-        if($title === '') {
+        if($title === '') 
+        {
             return 'Invalid title';
         }
 
-        if($imgur_address === '') {
+        if($imgur_address === '') 
+        {
             return 'Invalid url';
         }
 
-        if($user < 1) {
+        if($user < 1) 
+        {
             return 'Invalid user';
         }
 
@@ -212,11 +216,14 @@
         }
     }
 
-    function check_array($array, $value, $key) {
+    function check_array($array, $value, $key) 
+    {
         $result = false;
 
-        foreach($array as $item) {
-            if($item[$key] === $value) {
+        foreach($array as $item) 
+        {
+            if($item[$key] === $value) 
+            {
                 $result = true;
             }
         }

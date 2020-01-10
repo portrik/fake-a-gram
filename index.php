@@ -7,17 +7,22 @@
 
     $conn = get_connection();
 
-    if($_SERVER["REQUEST_METHOD"] === "POST") {
-        if(isset($_SESSION["username"])) {
-            if(isset($_POST["submitLike"])) {
+    if($_SERVER["REQUEST_METHOD"] === "POST") 
+    {
+        if(isset($_SESSION["username"])) 
+        {
+            if(isset($_POST["submitLike"])) 
+            {
                 upvote($conn, $_SESSION["username"], $_POST["post_id"]);
             }
-            elseif (isset($_POST["submitComment"])) {
+            elseif (isset($_POST["submitComment"])) 
+            {
                 add_comment($conn, $_POST["post_id_comment"], $_SESSION["username"], $_POST["comment"]);
             }
         }
 
-        if(isset($_POST["submitPosts"])) {
+        if(isset($_POST["submitPosts"])) 
+        {
             $start = $_POST["start"] + $_POST["count"];
             $count = $_POST["count"];
 
@@ -59,12 +64,14 @@
         <nav>
             <a href="/">Homepage</a>
             <?php
-                if(isset($_SESSION["username"])) {
+                if(isset($_SESSION["username"])) 
+                {
                     echo('<a href="/post.php">Add Post</a>');
                     echo('<a id="username">'. $_SESSION["username"] .'</a>');
                     echo('<a href="logout.php">Logout</a>');
                 }  
-                else {
+                else 
+                {
                     echo('<a href="/login.php">Login</a>');
                     echo('<a href="/register.php">Register</a>');
                 }
@@ -73,7 +80,8 @@
         <div>
             <div>
                 <?php
-                    if(sizeof($result) > 0) {
+                    if(sizeof($result) > 0) 
+                    {
                         foreach($result as $row)
                         {
                             $img = '<img src="'. $row["imgur_address"] .'" at="'. $row["title"] .'"> '. $row["title"] .' by '. get_username($conn, $row["user"]) .'';
