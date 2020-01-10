@@ -10,7 +10,7 @@ function initRegister() {
 function registerCheck() {
     var warnings = document.getElementsByClassName('warning');
 
-    if (warnings === null) {
+    if (warnings.length === 0) {
         document.getElementById('submit').disabled = false;
     }
 }
@@ -121,6 +121,8 @@ function initLogin() {
 
         loginRequest(username, pass);
     });
+
+    document.getElementById('username').focus();
 }
 
 function loginRequest(value, secondValue) {
@@ -133,7 +135,6 @@ function loginRequest(value, secondValue) {
 
     request.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            console.log(this.responseText);
             if (request.responseText === 'true') {
                 window.location.replace('/');
             }

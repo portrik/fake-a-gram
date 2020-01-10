@@ -54,7 +54,7 @@
                 <label for="passwordCheck">Confirm Password
                     <input type="password" name="passwordCheck" id="passwordCheck" required>
                 </label>
-                <input type="submit" name="submit" id="submit">
+                <input type="submit" name="submit" id="submit" disabled>
             </form>
         </div>
     </div>
