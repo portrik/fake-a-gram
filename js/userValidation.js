@@ -1,9 +1,19 @@
+/**
+ * Prevents Post form submition and adds listeners to title and imgur_address inputs.
+ * Sets focus to the title input field.
+ */
 function initPost() {
     document.getElementById('submit').disabled = true;
     document.getElementById('title').addEventListener('blur', titleValidation);
     document.getElementById('imgur_address').addEventListener('blur', linkValidation);
+
+    document.getElementById('title').focus();
 }
 
+/**
+ * Validates submitted title
+ * In case of invalid title, a warning message is displayed and submission is prevented.
+ */
 function titleValidation() {
     var title = document.getElementById('title').value.trim();
     var warning = document.getElementById('title-warning');
@@ -22,6 +32,11 @@ function titleValidation() {
     warningCheck();
 }
 
+/**
+ * Validates submitted link
+ * Only accepts i.imgur.com links ending with formats specified in their variable.
+ * In case of invalid link, a warning message is displayed and submission is prevented.
+ */
 function linkValidation() {
     var link = new URL(document.getElementById('imgur_address').value.trim());
     var warning = document.getElementById('link-warning');
@@ -44,7 +59,12 @@ function linkValidation() {
 
     warningCheck();
 }
- 
+
+/**
+ * Prevents Register from submitting form before submitted data are validated.
+ * Adds listeners to all form fields.
+ * Sets focus to username input field.
+ */
 function initRegister() {
     document.getElementById('username').addEventListener('blur', usernameValidation);
     document.getElementById('email').addEventListener('blur', emailValidation);
@@ -55,6 +75,10 @@ function initRegister() {
     document.getElementById('username').focus();
 }
 
+/**
+ * Checks whether warnings are present on the page.
+ * If none are present, submission is enabled. Otherwise submit button is disabled.
+ */
 function warningCheck() {
     var warnings = document.getElementsByClassName('warning');
 
@@ -66,6 +90,11 @@ function warningCheck() {
     }
 }
 
+/**
+ * Validates whether password is valid.
+ * Also checks, if password and second password match.
+ * Displays warning message if any of the conditions is not met.
+ */
 function passwordValidation() {
     var pass = document.getElementById('password').value;
     var check = document.getElementById('passwordCheck').value;
@@ -94,12 +123,17 @@ function passwordValidation() {
     warningCheck();
 }
 
+/**
+ * Uses regular expression to check for valid email format.
+ * Aftewards checks with backend, if email is already registered.
+ * In case of an error, a warning message is displayed.
+ */
 function emailValidation() {
     var email = document.getElementById('email').value.trim();
     var warning = document.getElementById('email-warning');
     var pattern = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
-    if (email !== "" && email.length < 256 && pattern.test(String(email).toLowerCase())) {
+    if (pattern.test(String(email).toLowerCase())) {
         registerRequest('email', email, 'Email is already registered', 'email-warning');
     }
     else {
@@ -114,6 +148,11 @@ function emailValidation() {
     warningCheck();
 }
 
+/**
+ * Checks, if a valid username was submitted.
+ * Afterwards checks with backend, if username is already registered.
+ * In case of an error, a warning message is displayed.
+ */
 function usernameValidation() {
     var username = document.getElementById('username').value.trim().toLowerCase();
     var warning = document.getElementById('username-warning');
@@ -133,6 +172,16 @@ function usernameValidation() {
     warningCheck();
 }
 
+/**
+ * Sends an async AJAX request to backend.
+ * In case of a negative result, a warning message is displayed.
+ * Otherwise warning is not displayed or is deleted.
+ * warningCheck is run at the end of the request.
+ * @param  {string} type - type of request, used by backend
+ * @param  {string} value - value to be evaluated by backend
+ * @param  {string} warningMessage - message to be displayed in case of a negative result
+ * @param  {string} warningID - ID of message element
+ */
 function registerRequest(type, value, warningMessage, warningID) {
     var request = new XMLHttpRequest();
     var params = 'type=' + encodeURI(type) + '&value=' + encodeURI(value);
@@ -163,11 +212,12 @@ function registerRequest(type, value, warningMessage, warningID) {
     }
 }
 
+/**
+ * Adds event listener to loginForm and sets focus to username input.
+ */
 function initLogin() {
     document.getElementById('loginForm').addEventListener('submit', function (e) {
         e.preventDefault();
-
-        removeWarnings();
 
         var username = document.getElementById('username').value.trim();
         var pass = document.getElementById('password').value.trim();
@@ -178,9 +228,16 @@ function initLogin() {
     document.getElementById('username').focus();
 }
 
-function loginRequest(value, secondValue) {
+/**
+ * Sends username and password to backend via POST request to log in.
+ * If logged in, user is redirected to the main page.
+ * Otherwise a warning message is displayed.
+ * @param  {string} username
+ * @param  {string} pass
+ */
+function loginRequest(username, pass) {
     var request = new XMLHttpRequest();
-    var params = 'type=login&value=' + encodeURI(value) + '&secondValue=' + encodeURI(secondValue);
+    var params = 'type=login&value=' + encodeURI(username) + '&secondValue=' + encodeURI(pass);
 
     request.open('POST', 'validation.php', true);
     request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -198,14 +255,12 @@ function loginRequest(value, secondValue) {
     }
 }
 
-function removeWarnings() {
-    var warnings = document.getElementsByClassName('warning');
-
-    for (var i = 0; i < warnings.length; ++i) {
-        warnings[i].parentNode.removeChild(warnings[i]);
-    }
-}
-
+/**
+ * Creates a warning element with submitted text.
+ * ID should be changed if more than one warning is present
+ * @param  {string} text
+ * @param  {string} id='warning'
+ */
 function createWarning(text, id = 'warning') {
     var warning = document.createElement('p');
     warning.classList.add('warning');

@@ -1,3 +1,6 @@
+/**
+ * Adds event listeners to Like and Comment forms
+ */
 function initMainPage() {
     var likeForms = document.getElementsByClassName('likeForm');
 
@@ -22,6 +25,13 @@ function initMainPage() {
     }
 }
 
+/**
+ * Checks whether comment is valid.
+ * If valid, the comment is sent to backend and temporarily displayed to the user.
+ * Otherwise an alert is displayed.
+ * @param  {int} post - id of a post
+ * @param  {string} comment
+ */
 function sendComment(post, comment) {
     if (comment === "" || comment.length > 255) {
         alert('Comment has to be shorter than 255 characters and contain at least one character.')
@@ -45,6 +55,10 @@ function sendComment(post, comment) {
     }
 }
 
+/**
+ * Sends like request to backend and displays new number of likes.
+ * @param  {int} post - id of a post
+ */
 function sendLike(post) {
     var request = new XMLHttpRequest();
     var params = 'type=like&post=' + encodeURI(post);
