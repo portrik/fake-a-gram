@@ -1,17 +1,68 @@
+function initPost() {
+    document.getElementById('submit').disabled = true;
+    document.getElementById('title').addEventListener('blur', titleValidation);
+    document.getElementById('imgur_address').addEventListener('blur', linkValidation);
+}
+
+function titleValidation() {
+    var title = document.getElementById('title').value.trim();
+    var warning = document.getElementById('title-warning');
+
+    if (title !== "" && title.length < 255) {
+        if (warning !== null) {
+            warning.parentNode.removeChild(warning);
+        }
+    }
+    else {
+        if (warning === null) {
+            document.getElementById('postForm').appendChild(createWarning('Title can\'t be empty or longer than 255 characters.', 'title-warning'));
+        }
+    }
+
+    warningCheck();
+}
+
+function linkValidation() {
+    var link = new URL(document.getElementById('imgur_address').value.trim());
+    var warning = document.getElementById('link-warning');
+    var formats = [
+        'jpg',
+        'png',
+        'gif',
+    ]
+
+    if (link.hostname === 'i.imgur.com' && formats.includes(link.pathname.slice(link.pathname.length - 3))) {
+        if (warning !== null) {
+            warning.parentNode.removeChild(warning);
+        }
+    }
+    else {
+        if (warning === null) {
+            document.getElementById('postForm').appendChild(createWarning('Link is not a valid imgur address.', 'link-warning'));
+        }
+    }
+
+    warningCheck();
+}
+ 
 function initRegister() {
     document.getElementById('username').addEventListener('blur', usernameValidation);
     document.getElementById('email').addEventListener('blur', emailValidation);
     document.getElementById('password').addEventListener('blur', passwordValidation);
     document.getElementById('passwordCheck').addEventListener('blur', passwordValidation);
 
+    document.getElementById('submit').disabled = true;
     document.getElementById('username').focus();
 }
 
-function registerCheck() {
+function warningCheck() {
     var warnings = document.getElementsByClassName('warning');
 
     if (warnings.length === 0) {
         document.getElementById('submit').disabled = false;
+    }
+    else {
+        document.getElementById('submit').disabled = true;
     }
 }
 
@@ -40,7 +91,7 @@ function passwordValidation() {
         warning.parentNode.removeChild(warning);
     }
 
-    registerCheck();
+    warningCheck();
 }
 
 function emailValidation() {
@@ -59,6 +110,8 @@ function emailValidation() {
             document.getElementById('registerForm').appendChild(createWarning('Email is not invalid.', 'email-warning'));
         }
     }
+
+    warningCheck();
 }
 
 function usernameValidation() {
@@ -76,6 +129,8 @@ function usernameValidation() {
             document.getElementById('registerForm').appendChild(createWarning('Username is not valid. It should contain letters or numbers and be under 32 characters.', 'username-warning'));
         }
     }
+
+    warningCheck();
 }
 
 function registerRequest(type, value, warningMessage, warningID) {
@@ -103,12 +158,10 @@ function registerRequest(type, value, warningMessage, warningID) {
                 }
             }
 
-            registerCheck();
+            warningCheck();
         }
     }
 }
-
-
 
 function initLogin() {
     document.getElementById('loginForm').addEventListener('submit', function (e) {
@@ -144,7 +197,6 @@ function loginRequest(value, secondValue) {
         }
     }
 }
-
 
 function removeWarnings() {
     var warnings = document.getElementsByClassName('warning');

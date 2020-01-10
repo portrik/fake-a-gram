@@ -34,6 +34,7 @@
 
     <!-- Custom Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
+    <script src="js/userValidation.js"></script>
 </head>
 
 <body>
@@ -42,7 +43,7 @@
     </nav>
     <div>
         <div>
-            <form action="#" method="POST">
+            <form action="#" method="POST" id="postForm">
                 <label for="username">Title
                     <input type="text" name="title" id="title" value="<?php echo isset($_POST["title"]) ? $_POST["title"] : "" ?>" required>
                 </label>
@@ -53,6 +54,10 @@
             </form>
         </div>
     </div>
+
+    <script>
+        initPost();
+    </script>
 </body>
 
 </html>
