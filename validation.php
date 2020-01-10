@@ -6,25 +6,32 @@
         $conn = get_connection();
         $value = $_POST['value'];
 
-        switch($_POST['type'])
+        if(check_captcha($_POST['recaptcha']))
         {
-            case 'username':
-                echo(check_username($conn, $value));
-            break;
-            case 'email':
-                if (check_email($conn, $value)) 
-                {
-                    echo('true');
-                }
-                else
-                {
-                    echo('false');
-                }
+            switch($_POST['type'])
+            {
+                case 'username':
+                    echo(check_username($conn, $value));
+                break;
+                case 'email':
+                    if (check_email($conn, $value)) 
+                    {
+                        echo('true');
+                    }
+                    else
+                    {
+                        echo('false');
+                    }
 
-            break;
-            case 'login':
-                echo(check_login($conn, $value, $_POST['secondValue']));
-            break;
+                break;
+                case 'login':
+                    echo(check_login($conn, $value, $_POST['secondValue']));
+                break;
+            }
+        }
+        else
+        {
+            echo('false');
         }
     }
     else 

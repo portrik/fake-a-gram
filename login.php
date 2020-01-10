@@ -33,10 +33,11 @@
     <link rel="stylesheet" href="/css/darkstyle.css" media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)">
     <link rel="stylesheet" href="/css/lightstyle.css" media="(prefers-color-scheme: light)">
 
-    <!-- Custom Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
-
+    <!-- Custom JavaScript -->
     <script src="js/userValidation.js"></script>
+
+    <!-- reCaptcha code -->
+    <script src="https://www.google.com/recaptcha/api.js?onload=recaptchaLoad&render=explicit" async defer></script>
 </head>
 
 <body>
@@ -47,12 +48,15 @@
     <div class="mainWrapper">
         <form action="#" method="POST" id="loginForm">
             <label for="username">Username
-                <input type="text" name="username" id="username" value="<?php echo isset($_POST["username"]) ? $_POST["username"] : "" ?>" required>
+                <input type="text" name="username" id="username" autocomplete="username" value="<?php echo isset($_POST["username"]) ? $_POST["username"] : "" ?>" required>
             </label>
             <label for="password">Password
-                <input type="password" name="password" id="password" required>
+                <input type="password" name="password" id="password" autocomplete="current-password" required>
             </label>
-            <label><button type="submit" name="submit" id="submit">Login</button></label>
+            <div id="recaptcha"></div>
+            <label>
+                <button type="submit" name="submit" id="submit">Login</button>
+            </label>
         </form>
     </div>
 

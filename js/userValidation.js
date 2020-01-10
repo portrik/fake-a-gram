@@ -1,3 +1,19 @@
+var recaptchaId = '';
+
+function recaptchaLoad () {
+    document.getElementById('recaptcha').style.display = 'block';
+    var theme = 'light';
+
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        theme = 'dark';
+    }
+
+    recaptchaID = grecaptcha.render('recaptcha', {
+        'sitekey' : '6LfnQ84UAAAAAPFeUpSP-OrYYh8XBHYrRcI8AvKa',
+        'theme': theme,
+    });
+}
+
 /**
  * Prevents Post form submition and adds listeners to title and imgur_address inputs.
  * Sets focus to the title input field.
@@ -184,7 +200,7 @@ function usernameValidation() {
  */
 function registerRequest(type, value, warningMessage, warningID) {
     var request = new XMLHttpRequest();
-    var params = 'type=' + encodeURI(type) + '&value=' + encodeURI(value);
+    var params = 'type=' + encodeURI(type) + '&value=' + encodeURI(value) + '&recaptcha=' + encodeURI(grecaptcha.getResponse(recaptchaID));
     var warning = document.getElementById(warningID);
 
     request.open('POST', 'validation.php', true);
@@ -237,7 +253,7 @@ function initLogin() {
  */
 function loginRequest(username, pass) {
     var request = new XMLHttpRequest();
-    var params = 'type=login&value=' + encodeURI(username) + '&secondValue=' + encodeURI(pass);
+    var params = 'type=login&value=' + encodeURI(username) + '&secondValue=' + encodeURI(pass) + '&recaptcha=' + encodeURI(grecaptcha.getResponse(recaptchaID));
 
     request.open('POST', 'validation.php', true);
     request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -245,6 +261,7 @@ function loginRequest(username, pass) {
 
     request.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            console.log(this.responseText);
             if (request.responseText === 'true') {
                 window.location.replace('/');
             }

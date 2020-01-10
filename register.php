@@ -6,11 +6,14 @@
     {
         $conn = get_connection();
 
-        $response = add_user($conn, strtolower($_POST["username"]), $_POST["password"], $_POST["passwordCheck"], strtolower($_POST["email"]));
-
-        if ($response == "Success")
+        if (check_recaptcha($_POST['recaptcha']))
         {
-            header("Location: /login.php");
+            $response = add_user($conn, strtolower($_POST["username"]), $_POST["password"], $_POST["passwordCheck"], strtolower($_POST["email"]));
+
+            if ($response == "Success")
+            {
+                header("Location: /login.php");
+            }
         }
     }
 ?>
@@ -31,7 +34,11 @@
     <!-- Custom Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
 
+    <!-- Custom JavaScript -->
     <script src="js/userValidation.js"></script>
+
+    <!-- reCaptcha code -->
+    <script src="https://www.google.com/recaptcha/api.js?onload=recaptchaLoad&render=explicit" async defer></script>
 </head>
 
 <body>
@@ -43,18 +50,19 @@
         <div class="mainWrapper">
             <form action="#" method="POST" id="registerForm">
                 <label for="username">Username
-                    <input type="text" name="username" id="username" value="<?php echo isset($_POST["username"]) ? $_POST["username"] : '' ?>" required>
+                    <input type="text" name="username" id="username" tabindex="1" autocomplete="off" value="<?php echo isset($_POST["username"]) ? $_POST["username"] : '' ?>" required>
                 </label>
                 <label for="email">Email
-                    <input type="email" name="email" id="email" value="<?php echo isset($_POST["email"]) ? $_POST["email"] : '' ?>" required>
+                    <input type="email" name="email" id="email" tabindex="2" value="<?php echo isset($_POST["email"]) ? $_POST["email"] : '' ?>" required>
                 </label>
                 <label for="password">Password
-                    <input type="password" name="password" id="password" required>
+                    <input type="password" name="new-password" tabindex="3" id="password" autocomplete="new-password" required>
                 </label>
                 <label for="passwordCheck">Confirm Password
-                    <input type="password" name="passwordCheck" id="passwordCheck" required>
+                    <input type="password" name="passwordCheck" tabindex="4" id="passwordCheck" autocomplete="new-password" required>
                 </label>
-                <input type="submit" name="submit" id="submit">
+                <div id="recaptcha"></div>
+                <input type="submit" name="submit" id="submit" tabindex="5">
             </form>
         </div>
     </div>
