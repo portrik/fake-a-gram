@@ -6,7 +6,7 @@
     {
         $conn = get_connection();
 
-        $response = add_user($conn, $_POST["username"], $_POST["password"], $_POST["passwordCheck"], $_POST["email"]);
+        $response = add_user($conn, strtolower($_POST["username"]), $_POST["password"], $_POST["passwordCheck"], strtolower($_POST["email"]));
 
         if ($response == "Success")
         {
@@ -31,7 +31,7 @@
     <!-- Custom Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
 
-    <script src="js/formValidation.js"></script>
+    <script src="js/userValidation.js"></script>
 </head>
 
 <body>

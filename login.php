@@ -34,7 +34,7 @@
     <!-- Custom Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
 
-    <script src="js/formValidation.js"></script>
+    <script src="js/userValidation.js"></script>
 </head>
 
 <body>

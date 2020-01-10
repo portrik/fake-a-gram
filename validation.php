@@ -12,7 +12,15 @@
                 echo(check_username($conn, $value));
                 break;
             case 'email':
-                echo(check_email($conn, $value));
+                if (check_email($conn, $value)) 
+                {
+                    echo('true');
+                }
+                else
+                {
+                    echo('false');
+                }
+
                 break;
             case 'login':
                 echo(check_login($conn, $value, $_POST['secondValue']));
@@ -28,11 +36,11 @@
     {
         if (get_user_id($conn, $username) == -1)
         {
-            return true;
+            return 'true';
         }
         else
         {
-            return false;
+            return 'false';
         }
     }
 

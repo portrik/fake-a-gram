@@ -54,9 +54,9 @@
 
     function check_email($conn, $email) {
         $sql = $conn -> query('SELECT email FROM users');
-        $emails = $sql -> fetchAll();
+        $emails = $sql -> fetchAll(PDO::FETCH_ASSOC);
 
-        if($email > 255 || in_array($email, $emails))
+        if($email > 255 || check_array($emails, $email, "email"))
         {
             return false;
         }
@@ -210,5 +210,17 @@
 
             return $result;
         }
+    }
+
+    function check_array($array, $value, $key) {
+        $result = false;
+
+        foreach($array as $item) {
+            if($item[$key] === $value) {
+                $result = true;
+            }
+        }
+
+        return $result;
     }
 ?>
