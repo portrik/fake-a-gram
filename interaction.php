@@ -3,20 +3,17 @@
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST')
     {
+        session_start();
         $conn = get_connection();
         
         switch($_POST['type'])
         {
-            case 'user':
-                session_start();
-                echo($_SESSION["username"]);
-            break;
             case 'like':
-                upvote($conn, $_POST["user"], $_POST["post"]);
+                upvote($conn, $_SESSION["username"], $_POST["post"]);
                 echo(get_likes($conn, $_POST["post"]));
             break;
             case 'comment':
-                add_comment($conn, $_POST["post"], $_POST["user"], $_POST["text"]);
+                add_comment($conn, $_POST["post"], $_SESSION["username"], $_POST["text"]);
                 echo('true');
             break;
         }

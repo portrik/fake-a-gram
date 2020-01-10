@@ -1,14 +1,11 @@
-var username = '';
-
 function initMainPage() {
-    username = getUsername();
     var likeForms = document.getElementsByClassName('likeForm');
 
     for (var i = 0; i < likeForms.length; ++i) {
         if (likeForms[i]) {
             likeForms[i].addEventListener('submit', function (e) {
                 e.preventDefault();
-                sendLike(username, e.srcElement.post_id.value);
+                sendLike(e.srcElement.post_id.value);
             });
         }
     }
@@ -19,19 +16,19 @@ function initMainPage() {
         if (commentForms[i]) {
             commentForms[i].addEventListener('submit', function (e) {
                 e.preventDefault();
-                sendComment(username, e.srcElement.post_id_comment.value, e.srcElement.comment.value.trim());
+                sendComment(e.srcElement.post_id_comment.value, e.srcElement.comment.value.trim());
             })
         }
     }
 }
 
-function sendComment(username, post, comment) {
+function sendComment(post, comment) {
     if (comment === "" || comment.length > 255) {
         alert('Comment has to be shorter than 255 characters and contain at least one character.')
     }
     else if (username !== "" && post !== null) {
         var request = new XMLHttpRequest();
-        var params = 'type=comment&user=' + encodeURI(username) + '&post=' + encodeURI(post) + '&text=' + encodeURI(comment);
+        var params = 'type=comment&post=' + encodeURI(post) + '&text=' + encodeURI(comment);
 
         request.open('POST', 'interaction.php', true);
         request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -40,7 +37,7 @@ function sendComment(username, post, comment) {
         request.onreadystatechange = function () {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 var newComment = document.createElement('p');
-                newComment.innerText = 'From ' + username + ': ' + comment;
+                newComment.innerText = 'From you just now: ' + comment;
 
                 document.getElementById('commentsOf' + post).appendChild(newComment);
             }
@@ -48,9 +45,9 @@ function sendComment(username, post, comment) {
     }
 }
 
-function sendLike(username, post) {
+function sendLike(post) {
     var request = new XMLHttpRequest();
-    var params = 'type=like&user=' + encodeURI(username) + '&post=' + encodeURI(post);
+    var params = 'type=like&post=' + encodeURI(post);
 
     request.open('POST', 'interaction.php', true);
     request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -59,21 +56,6 @@ function sendLike(username, post) {
     request.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
             document.getElementById('likesOf' + post).innerText = this.responseText;
-        }
-    }
-}
-
-function getUsername() {
-    var request = new XMLHttpRequest();
-    var params = 'type=user';
-
-    request.open('POST', 'interaction.php', true);
-    request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    request.send(params);
-
-    request.onreadystatechange = function () {
-        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            username = this.responseText;
         }
     }
 }
