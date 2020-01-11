@@ -1,3 +1,6 @@
+/**
+ * Adds listeners to Submit and Reset forms
+ */
 function initSettings () {
     document.getElementById('settingsForm').addEventListener('submit', function (e) {
         e.preventDefault();
@@ -11,7 +14,9 @@ function initSettings () {
         resetSettings();
     });
 }
-
+/**
+ * Saves settings through AJAX request to backend and redirects to index on completion.
+ */
 function saveSettings () {
     var color = document.getElementById('accentColor').value;
     var compact = document.getElementById('compact').checked;
@@ -44,7 +49,9 @@ function saveSettings () {
         }
     }
 }
-
+/**
+ * Resets settings through AJAX request to backend and redirects to index on completion.
+ */
 function resetSettings() {
     var request = new XMLHttpRequest();
     var params = 'type=reset';
