@@ -1,3 +1,6 @@
+/** ID should be always 0 if only one reCaptcha is loaded. Global value is used just in case. */
+var recaptchaID = '';
+
 /**
  * Adds event listeners to Like and Comment forms
  */

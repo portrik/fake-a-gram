@@ -58,7 +58,9 @@
         <!-- Custom Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
 
+        <!-- Custom JS -->
         <script src="js/mainPage.js"></script>
+
     </head>
     <body>
         <nav>

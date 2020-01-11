@@ -1,5 +1,10 @@
-var recaptchaId = '';
+/** ID should be always 0 if only one reCaptcha is loaded. Global value is used just in case. */
+var recaptchaID = '';
 
+/**
+ * Loads reCaptcha tickbox into element with recaptcha ID.
+ * Sets reCaptchas theme according to client's system preference in sync with CSS.
+ */
 function recaptchaLoad () {
     document.getElementById('recaptcha').style.display = 'block';
     var theme = 'light';
