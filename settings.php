@@ -62,7 +62,7 @@
         <div class="post">
             <form method="POST" action="#" id="settingsForm">
                 <label for="accentColor">Choose Your Accent Color:
-                    <input type="color" name="accentColor" id="accentColor" value="<?php echo isset($_SESSION["accentColor"]) ? $_SESSION["accentColor"] : "#FFCF82" ?>" required>
+                    <input type="color" name="accentColor" id="accentColor" value="<?php echo isset($_SESSION["accentColor"]) ? $_SESSION["accentColor"] : "#FFCF82" ?>">
                 </label>
                 <label for="textColor">Set Text Color to White:
                     <input type="checkbox" name="textColor" id="textColor" <?php
