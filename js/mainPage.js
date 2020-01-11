@@ -59,6 +59,7 @@ function sendComment(post, comment) {
 
         request.onreadystatechange = function () {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                document.getElementById('comment' + post).value = "";
                 var newComment = document.createElement('p');
                 newComment.innerText = 'From you just now: ' + comment;
 

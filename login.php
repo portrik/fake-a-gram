@@ -45,19 +45,19 @@
         <a href="/">Homepage</a>
         <a href="/register.php">Register</a>
     </nav>
-    <div class="mainWrapper">
-        <form action="#" method="POST" id="loginForm">
-            <label for="username">Username
-                <input type="text" name="username" id="username" autocomplete="username" value="<?php echo isset($_POST["username"]) ? $_POST["username"] : "" ?>" required>
-            </label>
-            <label for="password">Password
-                <input type="password" name="password" id="password" autocomplete="current-password" required>
-            </label>
-            <div id="recaptcha"></div>
-            <label>
-                <button type="submit" name="submit" id="submit">Login</button>
-            </label>
+    <div class="main">
+        <div class="post">
+            <form action="#" method="POST" id="loginForm">
+                <label for="username">Username
+                    <input type="text" name="username" id="username" autocomplete="username" value="<?php echo isset($_POST["username"]) ? $_POST["username"] : "" ?>" required>
+                </label>
+                <label for="password">Password
+                    <input type="password" name="password" id="password" autocomplete="current-password" required>
+                </label>
+                <div id="recaptcha"></div>
+                <input type="submit" name="submit" id="submit" value="Login">
         </form>
+      </div>
     </div>
 
     <script>

@@ -265,7 +265,6 @@ function loginRequest(username, pass) {
 
     request.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            console.log(this.responseText);
             if (request.responseText === 'true') {
                 window.location.replace('/');
             }

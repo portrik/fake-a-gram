@@ -239,7 +239,7 @@
         return $result;
     }
 
-    function check_captcha($token)
+    function check_recaptcha($token)
     {
         $url = 'https://www.google.com/recaptcha/api/siteverify';
         $data = array(

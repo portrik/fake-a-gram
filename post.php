@@ -48,13 +48,15 @@
         <?php
             if (isset($_SESSION["username"]))
             {
-                echo('<a id="username">'. $_SESSION["username"] .'</a>');
-                echo('<a href="logout.php">Logout</a>');
+                echo('<span class="right">');
+                    echo('<a id="username">'. $_SESSION["username"] .'</a>');
+                    echo('<a href="logout.php">Logout</a>');
+                echo('</span>');
             }
         ?>
     </nav>
-    <div>
-        <div>
+    <div class="main">
+        <div class="post">
             <form action="#" method="POST" id="postForm">
                 <label for="username">Title
                     <input type="text" name="title" id="title" value="<?php echo isset($_POST["title"]) ? $_POST["title"] : "" ?>" required>

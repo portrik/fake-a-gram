@@ -4,6 +4,7 @@
 
     $start = 0;
     $count = 10;
+    $showComments = true;
 
     $conn = get_connection();
 
@@ -31,6 +32,14 @@
         else
         {
             header('Location: /');
+        }
+    }
+
+    if (isset($_SESSION["compact"]))
+    {
+        if ($_SESSION["compact"] === 'on')
+        {
+            $showComments = false;
         }
     }
 
@@ -71,8 +80,11 @@
                 if(isset($_SESSION["username"])) 
                 {
                     echo('<a href="/post.php">Add Post</a>');
-                    echo('<a id="username">'. $_SESSION["username"] .'</a>');
-                    echo('<a href="logout.php">Logout</a>');
+                    
+                    echo('<span class="right">');
+                        echo('<a id="username">'. $_SESSION["username"] .'</a>');
+                        echo('<a href="logout.php">Logout</a>');
+                    echo('</span>');
                 }  
                 else 
                 {
@@ -81,61 +93,83 @@
                 }
             ?>
         </nav>
-        <div>
-            <div>
-                <?php
-                    if(sizeof($result) > 0) 
+        <div class="main">
+            <?php
+                if(sizeof($result) > 0) 
+                {
+                    foreach($result as $row)
                     {
-                        foreach($result as $row)
-                        {
-                            $img = '<img class="imgPost" src="'. $row["imgur_address"] .'" at="'. $row["title"] .'"> '. $row["title"] .' by '. get_username($conn, $row["user"]) .'';
-                            echo($img);
-                            $num_of_likes = '<p>Num of likes: <span id="likesOf'. $row["id"] .'">'. get_likes($conn, $row["id"]) .'</span></p>';
-                            echo($num_of_likes);
-                            $like = '<form method="POST" class="likeForm" action="/"><input type="text" name="post_id" value="'. $row["id"] .'" class="hidden"><input type="submit" name="submitLike" value="Like/Unlike"></form>';
-                            echo($like);
+                        echo('<div class="post">');
+                            echo('<div class="postMain">');
+                                $img = '<img class="imgPost" src="'. $row["imgur_address"] .'" at="'. $row["title"] .'">';
+                                echo($img);
+                            echo('</div>');
+                            echo('<div class="postSecondary">');
+                                $title = '<h3>'. $row["title"] .' by '. get_username($conn, $row["user"]) .'</h3>';
+                                echo($title);
+                                echo('<div class="likeCounter">');
+                                    $num_of_likes = '<p>Likes: <span id="likesOf'. $row["id"] .'">'. get_likes($conn, $row["id"]) .'</span></p>';
+                                    echo($num_of_likes);
+                                echo('</div>');
 
-                            echo('<div id="commentsOf'. $row["id"] .'">');
-                            $comments = get_comments($conn, $row["id"]);
+                                if (isset($_SESSION["username"]))
+                                {
+                                    $like = '<form method="POST" class="likeForm" action="/"><input type="text" name="post_id" value="'. $row["id"] .'" class="hidden"><input type="submit" name="submitLike" value="Like/Unlike"></form>';
+                                    echo($like);
+                                }
+
+                                if ($showComments)
+                                {
+                                    echo('<div class="comments" id="commentsOf'. $row["id"] .'">');
+                                    $comments = get_comments($conn, $row["id"]);
                             
-                            foreach($comments as $comm)
-                            {
-                                $text = '<p>From '. get_username($conn, $comm["user"]) .': '. $comm["comment"] .'<br>';
-                                echo($text);
-                            }
+                                    foreach($comments as $comm)
+                                    {
+                                        $text = '<p>From '. get_username($conn, $comm["user"]) .': '. $comm["comment"] .'<br>';
+                                        echo($text);
+                                    }
+
+                                    echo('</div>');
+
+                                    if (isset($_SESSION["username"]))
+                                    {
+                                        $comment = '<form method="POST" class="commentForm" action="/"><input type="text" name="post_id_comment" value="'. $row["id"] .'" class="hidden"><input type="text" name="comment" id="comment'. $row["id"] .'"><input type="submit" name="submitComment" value="Add Comment"></form>';
+                                        echo($comment);
+                                    }
+                                }
 
                             echo('</div>');
-
-                            $comment = '<form method="POST" class="commentForm" action="/"><input type="text" name="post_id_comment" value="'. $row["id"] .'" class="hidden"><input type="text" name="comment"><input type="submit" name="submitComment" value="Add Comment"></form>';
-                            echo($comment);
-                        }
-                        
-                        echo('<div class="pagination">');
-
-                        for($i = 0; $i < $pages; ++$i)
-                        {
-                            $page = '<a href="/?start='. $i * $count .'"';
-
-                            if ($start == $count * $i)
-                            {
-                                $page = $page.'class="active"';
-                            }
-
-                            $page = $page.'>'. ($i + 1) .'</a>';
-
-                            echo($page);
-                        }
-
                         echo('</div>');
                     }
-                    else 
-                    {
-                        $message = '<h1>No more posts were loaded.</h4>';
-                        echo($message);
-                    }
-                ?>
-            </div>
+                }
+                else 
+                {
+                    $message = '<h1>No posts were loaded.</h4>';
+                    echo($message);
+                }
+            ?>
         </div>
+        <?php
+            echo('<footer>');
+
+                echo('<div class="pagination">');
+                for($i = 0; $i < $pages; ++$i)
+                {
+                    $page = '<a href="/?start='. $i * $count .'"';
+
+                    if ($start == $count * $i)
+                    {
+                        $page = $page.'class="active"';
+                    }
+
+                    $page = $page.'>'. ($i + 1) .'</a>';
+
+                    echo($page);
+                }
+
+                echo('</div>');
+            echo('</footer>');
+        ?>
     </body>
 
     <script>

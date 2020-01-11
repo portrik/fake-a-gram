@@ -10,14 +10,6 @@
         $accent = $_SESSION["accentColor"];
     }
 
-    if (isset($_SESSION["compact"]))
-    {
-        if ($_SESSION["compact"] === 'on')
-        {
-            $compact = true;
-        }
-    }
-
     if (isset($_SESSION["textColor"]))
     {
         if ($_SESSION["textColor"] === 'on')
@@ -30,12 +22,30 @@
 body {
     margin: 0;
     padding: 0;
-    background: grey;
     font-family: 'Varela Round', sans-serif;
 }
 
+div {
+    border-radius: 25px;
+}
+
+footer {
+    width: 100vw;
+    height: 5vh;
+    background: <?php echo($accent) ?>;
+}
+
 a {
-    color: black;
+    color: <?php
+    if ($whiteText)
+    {
+        echo('white');
+    }
+    else 
+    {
+        echo('black');
+    }
+    ?>
 }
 
 nav {
@@ -43,27 +53,84 @@ nav {
     height: 5vh;
 }
 
-input, button {
-    width: 100%;
-    padding: 0;
-    font-size: 36px;
-    font-family: 'Varela Round', sans-serif;
+nav a {
+    margin-left: 10px;
 }
 
-.mainWrapper {
-    width: 40vw;
-    margin: auto;
+input {
+    width: 100%;
+    padding: 0;
+    font-size: 24px;
+    font-family: 'Varela Round', sans-serif;
+    border-radius: 25px;
+    margin-top: 5px;
+}
+
+.pagination {
+    width: 60vw;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1vh;
+    font-size: 1.5em;
+}
+
+.pagination a {
+    margin-left: 10px;
+}
+
+.active {
+    border-bottom: 5px groove red;
+}
+
+.main {
+    width: 60vw;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2vh;
 }
 
 .hidden {
     display: none;
 }
 
+.postMain {
+    width: 100%;
+}
+
+.postSecondary {
+    padding: 1vw;
+}
+
+.post {
+    background: rgba(0, 0, 0, 0.2);
+    margin-bottom: 5vh;
+}
+
 .imgPost {
+    display: block;
     cursor: pointer;
-    max-width: 50vw;
-    max-height: 25vh;
-    margin-left: 45vw;
+    max-width: 30vw;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.likeForm, .likeCounter {
+    margin: 5px;
+    display: inline-block;
+    width: 40%;
+}
+
+.comments {
+    background: rgba(0, 0, 0, 0.2);
+    padding-left: 5px;
+}
+
+.right {
+    float: right;
+}
+
+.right a {
+    margin-right: 10px;
 }
 
 #overlay {

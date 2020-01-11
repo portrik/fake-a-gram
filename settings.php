@@ -49,13 +49,15 @@
             if (isset($_SESSION["username"]))
             {
                 echo('<a href="/post.php">Add Post</a>');
-                echo('<a id="username">'. $_SESSION["username"] .'</a>');
-                echo('<a href="logout.php">Logout</a>');
+                echo('<span class="right">');
+                    echo('<a id="username">'. $_SESSION["username"] .'</a>');
+                    echo('<a href="logout.php">Logout</a>');
+                echo('</span>');
             }
         ?>
     </nav>
-    <div>
-        <div>
+    <div class="main">
+        <div class="post">
             <form method="POST" action="#" id="settingsForm">
                 <label for="accentColor">Choose Your Accent Color:
                     <input type="color" name="accentColor" id="accentColor" value="<?php echo isset($_SESSION["accentColor"]) ? $_SESSION["accentColor"] : "#FFCF82" ?>" required>
@@ -70,7 +72,7 @@
                          }
                          ?>>
                 </label>
-                <label for="compact">Make Posts Compact:
+                <label for="compact">Hide Comments:
                     <input type="checkbox" name="compact" id="compact" <?php
                          if (isset($_SESSION["compact"])) {
                              if ($_SESSION["compact"] === 'on') 
