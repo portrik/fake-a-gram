@@ -16,6 +16,16 @@
                 add_comment($conn, $_POST["post"], $_SESSION["username"], $_POST["text"]);
                 echo('true');
             break;
+            case 'settings':
+                $_SESSION["accentColor"] = $_POST["accentColor"];
+                $_SESSION["compact"] = $_POST["compact"];
+                $_SESSION["textColor"] = $_POST["textColor"];
+            break;
+            case 'reset':
+                unset($_SESSION["accentColor"]);
+                unset($_SESSION["compact"]);
+                unset($_SESSION["textColor"]);
+            break;
         }
     }
     else {

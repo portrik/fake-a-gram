@@ -83,6 +83,7 @@ input, button {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 2vh;
     max-width: 90%;
     max-height: 90%;
 }

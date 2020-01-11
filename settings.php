@@ -61,10 +61,24 @@
                     <input type="color" name="accentColor" id="accentColor" value="<?php echo isset($_SESSION["accentColor"]) ? $_SESSION["accentColor"] : "#FFCF82" ?>" required>
                 </label>
                 <label for="textColor">Set Text Color to White:
-                    <input type="checkbox" name="textColor" id="textColor" <?php echo isset($_SESSION["compact"]) ? "checked" : "" ?>>
+                    <input type="checkbox" name="textColor" id="textColor" <?php
+                         if (isset($_SESSION["textColor"])) {
+                             if ($_SESSION["textColor"] === 'on') 
+                             {
+                                 echo ("checked");
+                             }
+                         }
+                         ?>>
                 </label>
                 <label for="compact">Make Posts Compact:
-                    <input type="checkbox" name="compact" id="compact" <?php echo isset($_SESSION["compact"]) ? "checked" : "" ?>>
+                    <input type="checkbox" name="compact" id="compact" <?php
+                         if (isset($_SESSION["compact"])) {
+                             if ($_SESSION["compact"] === 'on') 
+                             {
+                                 echo ("checked");
+                             }
+                         }
+                         ?>>
                 </label>
                 <input type="submit" name="submit" id="submit" value="Save Settings">
             </form>
