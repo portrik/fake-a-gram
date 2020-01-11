@@ -64,6 +64,7 @@
         <!-- Loads CSS styling based on system preference -->
         <link rel="stylesheet" href="/css/darkstyle.css" media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)">
         <link rel="stylesheet" href="/css/lightstyle.css" media="(prefers-color-scheme: light)">
+        <link rel="stylesheet" href="/css/print.css" media="print">
         
         <!-- Custom Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">

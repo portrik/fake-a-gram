@@ -1,0 +1,8 @@
+body, div {
+    background-color: white !important;
+    color: black !important; 
+}
+
+footer, nav {
+    display: none;
+}
