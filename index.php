@@ -160,7 +160,7 @@
 
                     if ($start == $count * $i)
                     {
-                        $page = $page.'class="active"';
+                        $page = $page.' class="active"';
                     }
 
                     $page = $page.'>'. ($i + 1) .'</a>';
