@@ -5,12 +5,6 @@ body {
     font-family: 'Varela Round', sans-serif;
 }
 
-img {
-    max-width: 50vw;
-    max-height: 25vh;
-    margin-left: 45vw;
-}
-
 a {
     color: black;
 }
@@ -34,4 +28,32 @@ input, button {
 
 .hidden {
     display: none;
+}
+
+.imgPost {
+    cursor: pointer;
+    max-width: 50vw;
+    max-height: 25vh;
+    margin-left: 45vw;
+}
+
+#overlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+}
+
+#overlayImg {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 90%;
+    max-height: 90%;
 }

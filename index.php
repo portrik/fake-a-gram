@@ -87,7 +87,7 @@
                     {
                         foreach($result as $row)
                         {
-                            $img = '<img src="'. $row["imgur_address"] .'" at="'. $row["title"] .'"> '. $row["title"] .' by '. get_username($conn, $row["user"]) .'';
+                            $img = '<img class="imgPost" src="'. $row["imgur_address"] .'" at="'. $row["title"] .'"> '. $row["title"] .' by '. get_username($conn, $row["user"]) .'';
                             echo($img);
                             $num_of_likes = '<p>Num of likes: <span id="likesOf'. $row["id"] .'">'. get_likes($conn, $row["id"]) .'</span></p>';
                             echo($num_of_likes);

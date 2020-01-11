@@ -2,7 +2,7 @@
 var recaptchaID = '';
 
 /**
- * Adds event listeners to Like and Comment forms
+ * Adds event listeners to Like and Comment forms and also to images
  */
 function initMainPage() {
     var likeForms = document.getElementsByClassName('likeForm');
@@ -26,6 +26,16 @@ function initMainPage() {
             })
         }
     }
+
+    var imgElements = document.getElementsByClassName('imgPost');
+
+    for (var i = 0; i < imgElements.length; ++i) {
+        if (imgElements[i]) {
+            imgElements[i].addEventListener('click', function (e) {
+                overlay(e.toElement.src);
+            });
+        }
+    }
 }
 
 /**
@@ -39,7 +49,7 @@ function sendComment(post, comment) {
     if (comment === "" || comment.length > 255) {
         alert('Comment has to be shorter than 255 characters and contain at least one character.')
     }
-    else if (username !== "" && post !== null) {
+    else if (post !== null) {
         var request = new XMLHttpRequest();
         var params = 'type=comment&post=' + encodeURI(post) + '&text=' + encodeURI(comment);
 
@@ -75,4 +85,29 @@ function sendLike(post) {
             document.getElementById('likesOf' + post).innerText = this.responseText;
         }
     }
+}
+
+/**
+ * Creates an overlay with selected image in center.
+ * Has to be dismissed before any other interaction is possible.
+ * @param  {string} imgAddress
+ */
+function overlay(imgAddress) {
+    var overlayElement = document.createElement('div');
+    overlayElement.id = 'overlay';
+    overlayElement.addEventListener('click', overlayOff);
+    var imgElement = document.createElement('img');
+    imgElement.src = imgAddress;
+    imgElement.id = 'overlayImg';
+    overlayElement.appendChild(imgElement);
+
+    document.body.appendChild(overlayElement);
+}
+
+/**
+ * Removes overlay from screen.
+ */
+function overlayOff() {
+    var overlayElement = document.getElementById('overlay');
+    overlayElement.parentNode.removeChild(overlayElement);
 }

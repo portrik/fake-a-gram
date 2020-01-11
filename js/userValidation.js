@@ -64,7 +64,6 @@ function linkValidation() {
     var formats = [
         'jpg',
         'png',
-        'gif',
     ]
 
     if (link.hostname === 'i.imgur.com' && formats.includes(link.pathname.slice(link.pathname.length - 3))) {
