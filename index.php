@@ -56,7 +56,7 @@
 <html lang="en">
     <head>
         <title>Fake-a-Gram</title>
-        <meta content="text/html; charset=UTF-8">
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <link rel="shortcut icon" type="image/png" href="/~dvorap74/fake-a-gram/favicon.png"/>
 
         <!-- Default CSS styling -->
@@ -72,7 +72,6 @@
 
         <!-- Custom JS -->
         <script src="/~dvorap74/fake-a-gram/js/mainPage.js"></script>
-
     </head>
     <body>
         <nav>
@@ -103,7 +102,7 @@
                     {
                         echo('<div class="post">');
                             echo('<div class="postMain">');
-                                $img = '<img class="imgPost" src="'. $row["imgur_address"] .'" at="'. $row["title"] .'">';
+                                $img = '<img class="imgPost" src="'. $row["imgur_address"] .'" alt="'. $row["title"] .'">';
                                 echo($img);
                             echo('</div>');
                             echo('<div class="postSecondary">');
@@ -172,9 +171,9 @@
                 echo('</div>');
             echo('</footer>');
         ?>
-    </body>
 
-    <script>
-        initMainPage();
-    </script>
+        <script>
+            initMainPage();
+        </script>
+    </body>
 </html>

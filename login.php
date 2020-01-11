@@ -24,15 +24,19 @@
 
 <head>
     <title>Login - Fake-a-Gram</title>
-    <meta content="text/html; charset=UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <link rel="shortcut icon" type="image/png" href="/~dvorap74/fake-a-gram/favicon.png"/>
 
     <!-- Default CSS styling -->
     <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/style.php">
-
+    
     <!-- Loads CSS styling based on system preference -->
     <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/darkstyle.css" media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)">
     <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/lightstyle.css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/print.css" media="print">
+    
+    <!-- Custom Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
 
     <!-- Custom JavaScript -->
     <script src="/~dvorap74/fake-a-gram/js/userValidation.js"></script>
