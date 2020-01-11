@@ -27,7 +27,7 @@
     <meta content="text/html; charset=UTF-8">
 
     <!-- Default CSS styling -->
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style.php">
 
     <!-- Loads CSS styling based on system preference -->
     <link rel="stylesheet" href="/css/darkstyle.css" media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)">

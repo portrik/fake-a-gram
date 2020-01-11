@@ -1,3 +1,32 @@
+<?php
+    header('Content-type: text/css; charset: UTF-8;');
+    session_start();
+    $accent = '#FFCF82';
+    $compact = false;
+    $whiteText = false;
+
+    if (isset($_SESSION["accentColor"]))
+    {
+        $accent = $_SESSION["accentColor"];
+    }
+
+    if (isset($_SESSION["compact"]))
+    {
+        if ($_SESSION["compact"] === 'on')
+        {
+            $compact = true;
+        }
+    }
+
+    if (isset($_SESSION["textColor"]))
+    {
+        if ($_SESSION["textColor"] === 'on')
+        {
+            $whiteText = true;
+        }
+    }
+?>
+
 body {
     margin: 0;
     padding: 0;
@@ -10,7 +39,7 @@ a {
 }
 
 nav {
-    background: #FFCF82;
+    background: <?php echo($accent) ?>;
     height: 5vh;
 }
 
