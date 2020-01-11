@@ -132,12 +132,12 @@
             return 0;
         }
 
-        $all_rows = $conn -> query('SELECT id FROM posts') -> fetchAll();
+        $all_rows = get_posts_total($conn);
         $number = $count;
 
-        if($count > sizeof($all_rows)) 
+        if($count > $all_rows) 
         {
-            $number = sizeof($all_rows);
+            $number = $all_rows;
         }
 
         $sql = $conn -> prepare('SELECT * FROM posts ORDER BY id DESC LIMIT ? , ?');
@@ -146,6 +146,14 @@
 
         return $result;
     } 
+
+    function get_posts_total($conn)
+    {
+        $all_rows = $conn -> query('SELECT id FROM posts') -> fetchAll();
+        $result = sizeof($all_rows);
+
+        return $result;
+    }
 
     function get_username($conn, $user_id) 
     {

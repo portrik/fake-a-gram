@@ -40,6 +40,7 @@
     }
 
     $result = get_posts($conn, $start, $count);
+    $pages = ceil(get_posts_total($conn) / $count);
 ?>
 
 <!DOCTYPE html>
@@ -108,11 +109,23 @@
                             echo($comment);
                         }
                         
-                        if (sizeof($result) === $count) 
+                        echo('<div class="pagination">');
+
+                        for($i = 0; $i < $pages; ++$i)
                         {
-                            $more_posts = '<form method="POST" action="/?start='. $start .'&count='. $count .'"><input type="text" name="start" value="'. $start .'" class="hidden"><input type="text" name="count" value="'. $count .'" class="hidden"><input type="submit" name="submitPosts" value="Load More Posts"></form>';
-                            echo($more_posts);
+                            $page = '<a href="/?start='. $i * $count .'"';
+
+                            if ($start == $count * $i)
+                            {
+                                $page = $page.'class="active"';
+                            }
+
+                            $page = $page.'>'. ($i + 1) .'</a>';
+
+                            echo($page);
                         }
+
+                        echo('</div>');
                     }
                     else 
                     {
