@@ -25,6 +25,7 @@
 <head>
     <title>Login - Fake-a-Gram</title>
     <meta content="text/html; charset=UTF-8">
+    <link rel="shortcut icon" type="image/png" href="/~dvorap74/fake-a-gram/favicon.png"/>
 
     <!-- Default CSS styling -->
     <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/style.php">

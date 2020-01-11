@@ -9,6 +9,7 @@
 
         $dsn = 'mysql:dbname='. $db . ';host='. $host .';charset='. $charset .'';
         $options = [
+            PDO::ATTR_EMULATE_PREPARES => false,
         ];
 
         try 
