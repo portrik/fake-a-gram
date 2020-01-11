@@ -62,21 +62,21 @@
         <link rel="stylesheet" href="/css/style.php">
         
         <!-- Loads CSS styling based on system preference -->
-        <link rel="stylesheet" href="/css/darkstyle.css" media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)">
-        <link rel="stylesheet" href="/css/lightstyle.css" media="(prefers-color-scheme: light)">
-        <link rel="stylesheet" href="/css/print.css" media="print">
+        <link rel="stylesheet" href="./css/darkstyle.css" media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)">
+        <link rel="stylesheet" href="./css/lightstyle.css" media="(prefers-color-scheme: light)">
+        <link rel="stylesheet" href="./css/print.css" media="print">
         
         <!-- Custom Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
 
         <!-- Custom JS -->
-        <script src="js/mainPage.js"></script>
+        <script src="./js/mainPage.js"></script>
 
     </head>
     <body>
         <nav>
-            <a href="/">Homepage</a>
-            <a href="/settings.php">Settings</a>
+            <a href="wa.toad.cz/~dvorap74/fake-a-gram/">Homepage</a>
+            <a href="./settings.php">Settings</a>
             <?php
                 if(isset($_SESSION["username"])) 
                 {
