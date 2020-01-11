@@ -28,7 +28,7 @@
     }
     else 
     {
-        header('Location: /');
+        header('Location: /~dvorap74/fake-a-gram/');
     }    
 
     function check_username($conn, $username)

@@ -3,7 +3,7 @@
     session_start();
     if(!isset($_SESSION["username"])) 
     {
-        header("Location: /");
+        header("Location: /~dvorap74/fake-a-gram/");
     }
     else 
     {
@@ -14,7 +14,7 @@
             
             if($response == "Success") 
             {
-                header("Location: /");
+                header("Location: /~dvorap74/fake-a-gram/");
             }
         }
     }
@@ -30,27 +30,27 @@
     <meta content="text/html; charset=UTF-8">
 
     <!-- Default CSS styling -->
-    <link rel="stylesheet" href="/css/style.php">
+    <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/style.php">
 
     <!-- Loads CSS styling based on system preference -->
-    <link rel="stylesheet" href="/css/darkstyle.css" media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)">
-    <link rel="stylesheet" href="/css/lightstyle.css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/darkstyle.css" media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)">
+    <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/lightstyle.css" media="(prefers-color-scheme: light)">
 
     <!-- Custom Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
-    <script src="js/userValidation.js"></script>
+    <script src="/~dvorap74/fake-a-gram/js/userValidation.js"></script>
 </head>
 
 <body>
     <nav>
-        <a href="/">Homepage</a>
-        <a href="/settings.php">Settings</a>
+        <a href="/~dvorap74/fake-a-gram/">Homepage</a>
+        <a href="/~dvorap74/fake-a-gram/settings.php">Settings</a>
         <?php
             if (isset($_SESSION["username"]))
             {
                 echo('<span class="right">');
                     echo('<a id="username">'. $_SESSION["username"] .'</a>');
-                    echo('<a href="logout.php">Logout</a>');
+                    echo('<a href="/~dvorap74/fake-a-gram/logout.php">Logout</a>');
                 echo('</span>');
             }
         ?>

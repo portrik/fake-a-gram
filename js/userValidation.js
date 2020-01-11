@@ -266,7 +266,7 @@ function loginRequest(username, pass) {
     request.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
             if (request.responseText === 'true') {
-                window.location.replace('/');
+                window.location.replace('/~dvorap74/fake-a-gram/');
             }
             else if (request.responseText === 'false') {
                 document.getElementById('loginForm').appendChild(createWarning('Username and password are not valid.'));
