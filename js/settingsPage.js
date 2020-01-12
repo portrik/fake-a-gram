@@ -94,7 +94,9 @@ function handleText () {
         color = 'white';
     }
 
-    elements.foreach(function (el) {
-        elements.style.color = color;
-    });
+    for (var i = 0; i < elements.length; ++i) {
+        if (elements[i]) {
+            elements[i].style.color = color;
+        }
+    }
 }
