@@ -134,13 +134,17 @@
     function add_post($conn, $title, $imgur_address, $username)
     {
         $user = get_user_id($conn, $username);
+        $hostname = parse_url($imgur_address, PHP_URL_HOST);
+        $path = substr(parse_url($imgur_address, PHP_URL_PATH), -3);
+
+        $formats = array('jpg', 'png');
 
         if($title === '') 
         {
             return 'Invalid title';
         }
 
-        if($imgur_address === '') 
+        if($imgur_address === '' || $hostname !== 'i.imgur.com' || !in_array($path, $formats)) 
         {
             return 'Invalid url';
         }
@@ -167,7 +171,7 @@
     function get_user_id($conn, $username) 
     {
         $sql = $conn -> prepare('SELECT id FROM users WHERE username=?');
-        $sql -> execute([$username]);
+        $sql -> execute([strtolower($username)]);
 
         $result = $sql -> fetch();
 

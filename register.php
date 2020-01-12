@@ -9,7 +9,7 @@
         if (check_recaptcha($_POST['g-recaptcha-response']))
         {
             $response = add_user($conn, strtolower($_POST["username"]), $_POST["password"], $_POST["passwordCheck"], strtolower($_POST["email"]));
-
+            
             if ($response == "Success")
             {
                 header("Location: /login.php");

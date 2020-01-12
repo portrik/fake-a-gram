@@ -59,22 +59,29 @@ function titleValidation() {
  * In case of invalid link, a warning message is displayed and submission is prevented.
  */
 function linkValidation() {
-    var link = new URL(document.getElementById('imgur_address').value.trim());
-    var warning = document.getElementById('link-warning');
-    var formats = [
-        'jpg',
-        'png',
-    ]
+    var value = document.getElementById('imgur_address').value.trim();
 
-    if (link.hostname === 'i.imgur.com' && formats.includes(link.pathname.slice(link.pathname.length - 3))) {
-        if (warning !== null) {
-            warning.parentNode.removeChild(warning);
+    if (value !== "") {
+        var link = new URL(value);
+        var warning = document.getElementById('link-warning');
+        var formats = [
+            'jpg',
+            'png',
+        ]
+
+        if (link.hostname === 'i.imgur.com' && formats.includes(link.pathname.slice(link.pathname.length - 3))) {
+            if (warning !== null) {
+                warning.parentNode.removeChild(warning);
+            }
+        }
+        else {
+            if (warning === null) {
+                document.getElementById('postForm').appendChild(createWarning('Link is not a valid imgur address.', 'link-warning'));
+            }
         }
     }
     else {
-        if (warning === null) {
-            document.getElementById('postForm').appendChild(createWarning('Link is not a valid imgur address.', 'link-warning'));
-        }
+        document.getElementById('postForm').appendChild(createWarning('Link is empty.', 'link-warning'));
     }
 
     warningCheck();
