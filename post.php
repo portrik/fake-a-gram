@@ -15,7 +15,7 @@
         {
             $conn = get_connection();
             $response = add_post($conn, $_POST["title"], $_POST["imgur_address"], $_SESSION["username"]);
-            
+
             if($response == "Success") 
             {
                 header("Location: /");
