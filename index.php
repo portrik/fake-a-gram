@@ -27,11 +27,11 @@
             $start = $_POST["start"] + $_POST["count"];
             $count = $_POST["count"];
 
-            header('Location: /~dvorap74/fake-a-gram/?start='. $start .'');
+            header('Location: /?start='. $start .'');
         }
         else
         {
-            header('Location: /~dvorap74/fake-a-gram/');
+            header('Location: /');
         }
     }
 
@@ -57,40 +57,40 @@
     <head>
         <title>Fake-a-Gram</title>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <link rel="shortcut icon" type="image/png" href="/~dvorap74/fake-a-gram/favicon.png"/>
+        <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
 
         <!-- Default CSS styling -->
-        <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/style.php">
+        <link rel="stylesheet" href="/css/style.php">
         
         <!-- Loads CSS styling based on system preference -->
-        <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/darkstyle.css" media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)">
-        <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/lightstyle.css" media="(prefers-color-scheme: light)">
-        <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/print.css" media="print">
+        <link rel="stylesheet" href="/css/darkstyle.css" media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)">
+        <link rel="stylesheet" href="/css/lightstyle.css" media="(prefers-color-scheme: light)">
+        <link rel="stylesheet" href="/css/print.css" media="print">
         
         <!-- Custom Google Font -->
         <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
 
         <!-- Custom JS -->
-        <script src="/~dvorap74/fake-a-gram/js/mainPage.js"></script>
+        <script src="/js/mainPage.js"></script>
     </head>
     <body>
         <nav>
-            <a href="/~dvorap74/fake-a-gram/">Homepage</a>
-            <a href="/~dvorap74/fake-a-gram/settings.php">Settings</a>
+            <a href="/">Homepage</a>
+            <a href="/settings.php">Settings</a>
             <?php
                 if(isset($_SESSION["username"])) 
                 {
-                    echo('<a href="/~dvorap74/fake-a-gram/post.php">Add Post</a>');
+                    echo('<a href="/post.php">Add Post</a>');
                     
                     echo('<span class="right">');
                         echo('<a id="username">'. $_SESSION["username"] .'</a>');
-                        echo('<a href="/~dvorap74/fake-a-gram/logout.php">Logout</a>');
+                        echo('<a href="/logout.php">Logout</a>');
                     echo('</span>');
                 }  
                 else 
                 {
-                    echo('<a href="/~dvorap74/fake-a-gram/login.php">Login</a>');
-                    echo('<a href="/~dvorap74/fake-a-gram/register.php">Register</a>');
+                    echo('<a href="/login.php">Login</a>');
+                    echo('<a href="/register.php">Register</a>');
                 }
             ?>
         </nav>
@@ -156,7 +156,7 @@
                 echo('<div class="pagination">');
                 for($i = 0; $i < $pages; ++$i)
                 {
-                    $page = '<a href="/~dvorap74/fake-a-gram/?start='. $i * $count .'"';
+                    $page = '<a href="/?start='. $i * $count .'"';
 
                     if ($start == $count * $i)
                     {

@@ -29,7 +29,7 @@
         }
     }
     else {
-        header('Location: /~dvorap74/fake-a-gram/');
+        header('Location: /');
     }
 
 ?>

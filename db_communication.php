@@ -2,9 +2,9 @@
     function get_connection() 
     {
         $host = 'localhost';
-        $user = 'dvorap74';
-        $db = 'dvorap74';
-        $pass = 'SuperTajneHeslo69';
+        $user = 'root';
+        $db = 'fakeagram';
+        $pass = '';
         $charset = 'utf8';
 
         $dsn = 'mysql:dbname='. $db . ';host='. $host .';charset='. $charset .'';
