@@ -62,7 +62,7 @@
      */
     function check_login($conn, $username, $pass, $recaptcha) 
     {
-        if (check_recaptcha($recaptcha)) 
+        if (check_recaptcha($recaptcha))
         {
             if (login($conn, $username, $pass))
             {

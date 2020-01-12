@@ -42,6 +42,7 @@
      */
     function add_user($conn, $username, $password, $passwordCheck, $email) 
     {
+        $username = strtolower($username);
         $sql = $conn -> query('SELECT username FROM users');
         $usernames = $sql -> fetchAll();
 
@@ -80,8 +81,9 @@
     {
         $sql = $conn -> query('SELECT email FROM users');
         $emails = $sql -> fetchAll(PDO::FETCH_ASSOC);
+        $format = '/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i';
 
-        if($email > 255 || check_array($emails, $email, "email"))
+        if(!preg_match($format, $email) || $email > 255 || check_array($emails, $email, "email"))
         {
             return false;
         }
@@ -102,6 +104,7 @@
      */
     function login($conn, $username, $password) 
     {
+        $username = strtolower($username);
         $sql = $conn -> prepare('SELECT pass FROM users WHERE username=?');
         $sql -> execute([$username]);
 
