@@ -26,32 +26,34 @@
 
 <head>
     <title>Settings - Fake-a-Gram</title>
-    <meta content="text/html; charset=UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="shortcut icon" type="image/png" href="/~dvorap74/fake-a-gram/favicon.png"/>
 
     <!-- Default CSS styling -->
-    <link rel="stylesheet" href="/css/style.php">
-
+    <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/style.php">
+    
     <!-- Loads CSS styling based on system preference -->
-    <link rel="stylesheet" href="/css/darkstyle.css" media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)">
-    <link rel="stylesheet" href="/css/lightstyle.css" media="(prefers-color-scheme: light)">
-
+    <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/darkstyle.css" media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)">
+    <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/lightstyle.css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/print.css" media="print">
+    
     <!-- Custom Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
 
     <!-- Custom JS -->
-    <script src="js/settingsPage.js"></script>
+    <script src="/~dvorap74/fake-a-gram/js/settingsPage.js"></script>
 </head>
 
 <body>
     <nav>
-        <a href="/">Homepage</a>
+        <a href="/~dvorap74/fake-a-gram/">Homepage</a>
         <?php
             if (isset($_SESSION["username"]))
             {
-                echo('<a href="/post.php">Add Post</a>');
+                echo('<a href="/~dvorap74/fake-a-gram/post.php">Add Post</a>');
                 echo('<span class="right">');
                     echo('<a id="username">'. $_SESSION["username"] .'</a>');
-                    echo('<a href="logout.php">Logout</a>');
+                    echo('<a href="/~dvorap74/fake-a-gram/logout.php">Logout</a>');
                 echo('</span>');
             }
         ?>
@@ -60,7 +62,7 @@
         <div class="post">
             <form method="POST" action="#" id="settingsForm">
                 <label for="accentColor">Choose Your Accent Color:
-                    <input type="color" name="accentColor" id="accentColor" value="<?php echo isset($_SESSION["accentColor"]) ? $_SESSION["accentColor"] : "#FFCF82" ?>" required>
+                    <input type="color" name="accentColor" id="accentColor" value="<?php echo isset($_SESSION["accentColor"]) ? $_SESSION["accentColor"] : "#FFCF82" ?>">
                 </label>
                 <label for="textColor">Set Text Color to White:
                     <input type="checkbox" name="textColor" id="textColor" <?php

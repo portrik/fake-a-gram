@@ -4,7 +4,7 @@
 
     if(isset($_SESSION["username"]))
     {
-        header('Location: /');
+        header('Location: /~dvorap74/fake-a-gram/');
     }
 
     $conn = get_connection();
@@ -14,7 +14,7 @@
         if(login($conn, $_POST["username"], $_POST["password"])) 
         {
             $_SESSION["username"] = $_POST["username"];
-            header("Location: /");
+            header("Location: /~dvorap74/fake-a-gram/");
         }
     }
 ?>
@@ -24,17 +24,22 @@
 
 <head>
     <title>Login - Fake-a-Gram</title>
-    <meta content="text/html; charset=UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="shortcut icon" type="image/png" href="/~dvorap74/fake-a-gram/favicon.png"/>
 
     <!-- Default CSS styling -->
-    <link rel="stylesheet" href="/css/style.php">
-
+    <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/style.php">
+    
     <!-- Loads CSS styling based on system preference -->
-    <link rel="stylesheet" href="/css/darkstyle.css" media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)">
-    <link rel="stylesheet" href="/css/lightstyle.css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/darkstyle.css" media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)">
+    <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/lightstyle.css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/print.css" media="print">
+    
+    <!-- Custom Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
 
     <!-- Custom JavaScript -->
-    <script src="js/userValidation.js"></script>
+    <script src="/~dvorap74/fake-a-gram/js/userValidation.js"></script>
 
     <!-- reCaptcha code -->
     <script src="https://www.google.com/recaptcha/api.js?onload=recaptchaLoad&render=explicit" async defer></script>
@@ -42,8 +47,8 @@
 
 <body>
     <nav>
-        <a href="/">Homepage</a>
-        <a href="/register.php">Register</a>
+        <a href="/~dvorap74/fake-a-gram/">Homepage</a>
+        <a href="/~dvorap74/fake-a-gram/register.php">Register</a>
     </nav>
     <div class="main">
         <div class="post">

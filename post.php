@@ -3,7 +3,7 @@
     session_start();
     if(!isset($_SESSION["username"])) 
     {
-        header("Location: /");
+        header("Location: /~dvorap74/fake-a-gram/");
     }
     else 
     {
@@ -14,7 +14,7 @@
             
             if($response == "Success") 
             {
-                header("Location: /");
+                header("Location: /~dvorap74/fake-a-gram/");
             }
         }
     }
@@ -27,30 +27,34 @@
 
 <head>
     <title>Add Post - Fake-a-Gram</title>
-    <meta content="text/html; charset=UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="shortcut icon" type="image/png" href="/~dvorap74/fake-a-gram/favicon.png"/>
 
     <!-- Default CSS styling -->
-    <link rel="stylesheet" href="/css/style.php">
-
+    <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/style.php">
+    
     <!-- Loads CSS styling based on system preference -->
-    <link rel="stylesheet" href="/css/darkstyle.css" media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)">
-    <link rel="stylesheet" href="/css/lightstyle.css" media="(prefers-color-scheme: light)">
-
+    <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/darkstyle.css" media="(prefers-color-scheme: dark), (prefers-color-scheme: no-preference)">
+    <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/lightstyle.css" media="(prefers-color-scheme: light)">
+    <link rel="stylesheet" href="/~dvorap74/fake-a-gram/css/print.css" media="print">
+    
     <!-- Custom Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Varela+Round&display=swap" rel="stylesheet">
-    <script src="js/userValidation.js"></script>
+
+    <!-- Custom JS -->
+    <script src="/~dvorap74/fake-a-gram/js/userValidation.js"></script>
 </head>
 
 <body>
     <nav>
-        <a href="/">Homepage</a>
-        <a href="/settings.php">Settings</a>
+        <a href="/~dvorap74/fake-a-gram/">Homepage</a>
+        <a href="/~dvorap74/fake-a-gram/settings.php">Settings</a>
         <?php
             if (isset($_SESSION["username"]))
             {
                 echo('<span class="right">');
                     echo('<a id="username">'. $_SESSION["username"] .'</a>');
-                    echo('<a href="logout.php">Logout</a>');
+                    echo('<a href="/~dvorap74/fake-a-gram/logout.php">Logout</a>');
                 echo('</span>');
             }
         ?>
@@ -61,11 +65,20 @@
                 <label for="username">Title
                     <input type="text" name="title" id="title" value="<?php echo isset($_POST["title"]) ? $_POST["title"] : "" ?>" required>
                 </label>
-                <label for="imgur_address">Image Address
+                <label for="imgur_address">Image Address (imgur)
                     <input type="url" name="imgur_address" id="imgur_address" value="<?php echo isset($_POST["imgur_address"]) ? $_POST["imgur_address"] : "" ?>" required>
                 </label>
                 <input type="submit" name="submit" id="submit">
             </form>
+        </div>
+
+        <div class="post">
+            <h3>Please note:</h3>
+            <ul>
+                <li>Title cannot be empty and has to be shorter than 255 characters.</li>
+                <li>Only direct imgur links are accepted.</li>
+                <li>If your link does not end in '.jpg' or '.png', right-click on the image and choose copy image adrress.</li>
+            </ul>
         </div>
     </div>
 

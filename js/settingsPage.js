@@ -13,7 +13,11 @@ function initSettings () {
 
         resetSettings();
     });
+
+    document.getElementById('accentColor').addEventListener('change', handleColor);
+    document.getElementById('textColor').addEventListener('change', handleText);
 }
+
 /**
  * Saves settings through AJAX request to backend and redirects to index on completion.
  */
@@ -45,10 +49,11 @@ function saveSettings () {
 
     request.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            window.location.replace('/');
+            window.location.replace('/~dvorap74/fake-a-gram/');
         }
     }
 }
+
 /**
  * Resets settings through AJAX request to backend and redirects to index on completion.
  */
@@ -62,7 +67,36 @@ function resetSettings() {
 
     request.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            window.location.replace('/');
+            window.location.replace('/~dvorap74/fake-a-gram/');
+        }
+    }
+}
+
+/**
+ * Temporarily sets background color of the nav element to the selected color.
+ */
+function handleColor () {
+    var color = document.getElementById('accentColor').value;
+    var nav = document.getElementsByTagName('nav')[0];
+
+    nav.style.backgroundColor = color;
+}
+
+/**
+ * Temporarily sets color of a elements to the selected value.
+ */
+function handleText () {
+    var value = document.getElementById('textColor').checked;
+    var elements = document.getElementsByTagName('a');
+    var color = 'black';
+
+    if (value) {
+        color = 'white';
+    }
+
+    for (var i = 0; i < elements.length; ++i) {
+        if (elements[i]) {
+            elements[i].style.color = color;
         }
     }
 }
