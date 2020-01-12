@@ -49,7 +49,7 @@ function saveSettings () {
 
     request.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            window.location.replace('/~dvorap74/fake-a-gram/');
+            window.location.replace('/');
         }
     }
 }
@@ -67,7 +67,7 @@ function resetSettings() {
 
     request.onreadystatechange = function () {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            window.location.replace('/~dvorap74/fake-a-gram/');
+            window.location.replace('/');
         }
     }
 }
