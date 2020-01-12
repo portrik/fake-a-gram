@@ -67,6 +67,15 @@
                 <input type="submit" name="submit" id="submit" tabindex="5">
             </form>
         </div>
+
+        <div class="post">
+            <h3>Please note:</h3>
+            <ul>
+                <li>Username cannot be empty and has to be shorter than 255 characters.</li>
+                <li>Only valid emails adresses are accepted, unless already registered..</li>
+                <li>Password has to be at least 8 characters long.</li>
+            </ul>
+        </div>
     </div>
 
     <script>

@@ -65,11 +65,20 @@
                 <label for="username">Title
                     <input type="text" name="title" id="title" value="<?php echo isset($_POST["title"]) ? $_POST["title"] : "" ?>" required>
                 </label>
-                <label for="imgur_address">Image Address
+                <label for="imgur_address">Image Address (imgur)
                     <input type="url" name="imgur_address" id="imgur_address" value="<?php echo isset($_POST["imgur_address"]) ? $_POST["imgur_address"] : "" ?>" required>
                 </label>
                 <input type="submit" name="submit" id="submit">
             </form>
+        </div>
+
+        <div class="post">
+            <h3>Please note:</h3>
+            <ul>
+                <li>Title cannot be empty and has to be shorter than 255 characters.</li>
+                <li>Only direct imgur links are accepted.</li>
+                <li>If your link does not end in '.jpg' or '.png', right-click on the image and choose copy image adrress.</li>
+            </ul>
         </div>
     </div>
 
