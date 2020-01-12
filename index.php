@@ -8,6 +8,10 @@
 
     $conn = get_connection();
 
+    /**
+     * POST is executed only when JavaScript execution is not possible
+     * Otherwise index is returned.
+     */
     if($_SERVER["REQUEST_METHOD"] === "POST") 
     {
         if(isset($_SESSION["username"])) 
@@ -20,14 +24,6 @@
             {
                 add_comment($conn, $_POST["post_id_comment"], $_SESSION["username"], $_POST["comment"]);
             }
-        }
-
-        if(isset($_POST["submitPosts"])) 
-        {
-            $start = $_POST["start"] + $_POST["count"];
-            $count = $_POST["count"];
-
-            header('Location: /?start='. $start .'');
         }
         else
         {
@@ -48,6 +44,9 @@
         $start = $_GET["start"];
     }
 
+    /**
+     * Retrieves posts from database and number of pages to be displayed
+     */
     $result = get_posts($conn, $start, $count);
     $pages = ceil(get_posts_total($conn) / $count);
 ?>
@@ -98,6 +97,7 @@
             <?php
                 if(sizeof($result) > 0) 
                 {
+                    /** Generates post elements */
                     foreach($result as $row)
                     {
                         echo('<div class="post">');
@@ -113,12 +113,14 @@
                                     echo($num_of_likes);
                                 echo('</div>');
 
+                                /** Like button is displayed only to logged in users */
                                 if (isset($_SESSION["username"]))
                                 {
                                     $like = '<form method="POST" class="likeForm" action="/"><input type="text" name="post_id" value="'. $row["id"] .'" class="hidden"><input type="submit" name="submitLike" value="Like/Unlike"></form>';
                                     echo($like);
                                 }
-
+                                
+                                /** Comments are shown only if user have not selected to hide them in settings */
                                 if ($showComments)
                                 {
                                     echo('<div class="comments" id="commentsOf'. $row["id"] .'">');
@@ -131,7 +133,8 @@
                                     }
 
                                     echo('</div>');
-
+                                    
+                                    /** Option to comment is shown only to logged in users */
                                     if (isset($_SESSION["username"]))
                                     {
                                         $comment = '<form method="POST" class="commentForm" action="/"><input type="text" name="post_id_comment" value="'. $row["id"] .'" class="hidden"><input type="text" name="comment" id="comment'. $row["id"] .'"><input type="submit" name="submitComment" value="Add Comment"></form>';

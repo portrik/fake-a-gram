@@ -2,6 +2,9 @@
     include("db_communication.php");
     session_start();
     
+    /**
+     * Non-logged in users are redirected to index
+     */
     if(!isset($_SESSION["username"])) 
     {
         header("Location: /");

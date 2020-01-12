@@ -22,7 +22,7 @@
                 }
             break;
             case 'login':
-                echo(check_login($conn, $value, $_POST['secondValue']));
+                echo(check_login($conn, $value, $_POST['secondValue'], $_POST['recaptcha']));
             break;
         }
     }
@@ -31,6 +31,14 @@
         header('Location: /');
     }    
 
+    /**
+     * check_username
+     * Checks, if username exists and returns string 
+     * @param  PDO_Connection $conn
+     * @param  String $username
+     *
+     * @return String
+     */
     function check_username($conn, $username)
     {
         if (get_user_id($conn, $username) == -1)
@@ -43,17 +51,34 @@
         }
     }
 
-    function check_login($conn, $username, $pass) 
+    /**
+     * check_login
+     * Checks login information with reCaptcha
+     * @param  PDO_Connection $conn
+     * @param  String $username
+     * @param  String $pass
+     *
+     * @return String
+     */
+    function check_login($conn, $username, $pass, $recaptcha) 
     {
-        if (login($conn, $username, $pass))
+        if (check_recaptcha($recaptcha)) 
+        {
+            if (login($conn, $username, $pass))
             {
                 session_start();
                 $_SESSION["username"] = $username;
 
                 return 'true';
             }
-            else {
+            else
+            {
                 return 'false';
             }
+        }
+        else 
+        {
+            return 'false';
+        }
     }
 ?>

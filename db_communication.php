@@ -1,10 +1,10 @@
-
+<?php
     /**
      * get_connection
      * Creates PDO connection to preset database.
      *
-     * @return PDO connection
-     */<?php
+     * @return PDO_Connection
+     */
     function get_connection() 
     {
         $host = 'localhost';
