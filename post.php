@@ -7,7 +7,7 @@
      */
     if(!isset($_SESSION["username"])) 
     {
-        header("Location: /");
+        header("Location: /~dvorap74/fake-a-gram/");
     }
     else 
     {
@@ -18,7 +18,7 @@
 
             if($response == "Success") 
             {
-                header("Location: /");
+                header("Location: /~dvorap74/fake-a-gram/");
             }
         }
     }
