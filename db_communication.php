@@ -8,9 +8,9 @@
     function get_connection() 
     {
         $host = 'localhost';
-        $user = 'root';
-        $db = 'fakeagram';
-        $pass = '';
+        $user = 'dvorap74';
+        $db = 'dvorap74';
+        $pass = 'SuperTajneHeslo69';
         $charset = 'utf8';
 
         $dsn = 'mysql:dbname='. $db . ';host='. $host .';charset='. $charset .'';
