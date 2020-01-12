@@ -79,6 +79,7 @@
         <div class="post">
             <h3>Please note:</h3>
             <ul>
+                <li><b>All values are required</b></li>
                 <li>Title cannot be empty and has to be shorter than 255 characters.</li>
                 <li>Only direct imgur links are accepted.</li>
                 <li>If your link does not end in '.jpg' or '.png', right-click on the image and choose copy image adrress.</li>
