@@ -1,4 +1,10 @@
-<?php
+
+    /**
+     * get_connection
+     * Creates PDO connection to preset database.
+     *
+     * @return PDO connection
+     */<?php
     function get_connection() 
     {
         $host = 'localhost';
@@ -23,6 +29,17 @@
         }
     }
 
+    /**
+     * add_user
+     * Adds user to the databse if submitted data is valid
+     * @param  PDO_Connection $conn
+     * @param  String $username
+     * @param  String $password
+     * @param  String $passwordCheck
+     * @param  String $email
+     *
+     * @return String - Either error message or Success
+     */
     function add_user($conn, $username, $password, $passwordCheck, $email) 
     {
         $sql = $conn -> query('SELECT username FROM users');
@@ -51,6 +68,14 @@
         return 'Success';
     }
 
+    /**
+     * check_email
+     * Checks if email is valid and if it is not already registered
+     * @param  PDO_Connection $conn
+     * @param  String $email
+     *
+     * @return Boolean - true on valid
+     */
     function check_email($conn, $email) 
     {
         $sql = $conn -> query('SELECT email FROM users');
@@ -66,6 +91,15 @@
         }
     }
 
+    /**
+     * login
+     * Checks values and logs user in on success
+     * @param  PDO_Connection $conn
+     * @param  String $username
+     * @param  String $password
+     *
+     * @return Boolean - true on successfull login
+     */
     function login($conn, $username, $password) 
     {
         $sql = $conn -> prepare('SELECT pass FROM users WHERE username=?');
@@ -84,6 +118,16 @@
         return false;
     }
 
+    /**
+     * add_post
+     * Checks submitted data and adds them to databse if valid.
+     * @param  PDO_Connection $conn
+     * @param  String $title
+     * @param  String-URL $imgur_address
+     * @param  String $username
+     *
+     * @return String - Error message or Success 
+     */
     function add_post($conn, $title, $imgur_address, $username)
     {
         $user = get_user_id($conn, $username);
@@ -109,6 +153,14 @@
         return 'Success';
     }
 
+    /**
+     * get_user_id
+     * Retrieves ID assigned to submitted username
+     * @param  PDO_Connection $conn
+     * @param  String $username
+     *
+     * @return Int - Non-existent user returned as -1
+     */
     function get_user_id($conn, $username) 
     {
         $sql = $conn -> prepare('SELECT id FROM users WHERE username=?');
@@ -124,6 +176,16 @@
         return -1;
     }   
 
+    /**
+     * get_posts
+     * Retrieves post from the database. Posts are ordered in descending order by ID.
+     * Start is counted from post with highest ID.
+     * @param  PDO_Connection $conn
+     * @param  Int $start
+     * @param  Int $count
+     *
+     * @return PDO_SQL_Result - All values from the database are returned
+     */
     function get_posts($conn, $start, $count) 
     {
         if($start < 0 || $count < 1) 
@@ -146,6 +208,13 @@
         return $result;
     } 
 
+    /**
+     * get_posts_total
+     * Retrieves total number of posts in the database
+     * @param  PDO_Connection $conn
+     *
+     * @return Int
+     */
     function get_posts_total($conn)
     {
         $all_rows = $conn -> query('SELECT id FROM posts') -> fetchAll();
@@ -154,6 +223,14 @@
         return $result;
     }
 
+    /**
+     * get_username
+     * Retrieves username assigned to submitted ID.
+     * @param  PDO_Connection $conn
+     * @param  Int $user_id
+     *
+     * @return String
+     */
     function get_username($conn, $user_id) 
     {
         $sql = $conn -> prepare('SELECT username FROM users WHERE id=? LIMIT 1');
@@ -163,6 +240,13 @@
         return $username['username'];
     }
 
+    /**
+     * upvote
+     * Adds or removes like from a post by a user
+     * @param  PDO_Connection $conn
+     * @param  String $username
+     * @param  Int $post_id
+     */
     function upvote($conn, $username, $post_id) 
     {
         $user_id = get_user_id($conn, $username);
@@ -186,6 +270,14 @@
         }
     }
 
+    /**
+     * add_comment
+     * Adds comment to a post if submitted data are valid
+     * @param  PDO_Connection $conn
+     * @param  Int $post_id
+     * @param  String $username
+     * @param  String $comment
+     */
     function add_comment($conn, $post_id, $username, $comment) 
     {
         $user_id = get_user_id($conn, $username);
@@ -197,6 +289,14 @@
         }
     }
 
+    /**
+     * get_likes
+     * Retrieves number of likes on a post
+     * @param  PDO_Connection $conn
+     * @param  String $post_id
+     *
+     * @return Int
+     */
     function get_likes($conn, $post_id) 
     {
         if ($post_id > 0)
@@ -210,6 +310,14 @@
         }
     }
 
+    /**
+     * get_comments
+     * Retrieves comments on a post
+     * @param  PDO_Connection $conn
+     * @param  Int $post_id
+     *
+     * @return Array_of_Strings
+     */
     function get_comments($conn, $post_id) 
     {
         if ($post_id > 0)
@@ -223,6 +331,15 @@
         }
     }
 
+    /**
+     * check_array
+     * Checks if a value is present in array. Only used to check emails.
+     * @param  Array $array
+     * @param  mixed $value - searched value
+     * @param  mixed $key - key, under which searched value could be hidden
+     *
+     * @return Boolean - whether value is present in array
+     */
     function check_array($array, $value, $key) 
     {
         $result = false;
@@ -238,6 +355,13 @@
         return $result;
     }
 
+    /**
+     * check_recaptcha
+     * Checks reCaptcha with reCaptcha servers if user interaction was valid.
+     * @param  String $token - token generated by JavaScript code
+     *
+     * @return String - 'true' or 'false'
+     */
     function check_recaptcha($token)
     {
         $url = 'https://www.google.com/recaptcha/api/siteverify';
