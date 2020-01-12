@@ -1,4 +1,5 @@
 <?php
+    ini_set('display_errors', false);
     /**
      * get_connection
      * Creates PDO connection to preset database.
