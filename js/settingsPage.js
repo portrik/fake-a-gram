@@ -13,7 +13,11 @@ function initSettings () {
 
         resetSettings();
     });
+
+    document.getElementById('accentColor').addEventListener('change', handleColor);
+    document.getElementById('textColor').addEventListener('change', handleText);
 }
+
 /**
  * Saves settings through AJAX request to backend and redirects to index on completion.
  */
@@ -49,6 +53,7 @@ function saveSettings () {
         }
     }
 }
+
 /**
  * Resets settings through AJAX request to backend and redirects to index on completion.
  */
@@ -65,4 +70,31 @@ function resetSettings() {
             window.location.replace('/~dvorap74/fake-a-gram/');
         }
     }
+}
+
+/**
+ * Temporarily sets background color of the nav element to the selected color.
+ */
+function handleColor () {
+    var color = document.getElementById('accentColor').value;
+    var nav = document.getElementsByTagName('nav')[0];
+
+    nav.style.backgroundColor = color;
+}
+
+/**
+ * Temporarily sets color of a elements to the selected value.
+ */
+function handleText () {
+    var value = document.getElementById('textColor').checked;
+    var elements = document.getElementsByTagName('a');
+    var color = 'black';
+
+    if (value) {
+        color = 'white';
+    }
+
+    elements.foreach(function (el) {
+        elements.style.color = color;
+    });
 }
